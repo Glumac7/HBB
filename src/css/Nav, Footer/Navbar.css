@@ -1,0 +1,105 @@
+/*Navbar Style*/
+#nav-button {
+    border: 0;
+  }
+  
+  .navbar {
+    transition: all .3s;
+  }
+  
+  #logo {
+    height: 50px;
+    transition: all .3s;
+    width: auto;
+  }
+
+  .nav-link {
+    color: var(--default-color);
+    font-weight: 600;
+	font-family: 'PT Sans', sans-serif;
+	transition: all .3s;
+	font-size: 18px;
+  }
+
+  .nav-link:hover{
+    color: var(--default-color);
+  }
+
+  @media(max-width: 995px)
+  {
+    .navbar {
+        background: rgba(255, 255, 255, .95);
+        border-bottom: 2px solid var(--default-color);
+    }
+    
+    #logo {
+        height: 35px;
+        width: auto;
+    }
+  }
+
+  @media(min-width: 995px)
+  {
+    .nav-link::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: var(--default-color);
+        transition: width 0.2s;
+      }
+    
+      .nav-link:hover::after {
+        width: 100%;
+        transition: width 0.2s;
+      }
+  }
+/*Burger Icon*/
+  button:focus, button:active, .burger-container
+  {
+    outline: none !important;
+    box-shadow: none;
+  }
+  
+  .burger-container
+  {
+    width: 24px;
+    display: block;
+  }
+  
+  .burger
+  {
+    cursor: pointer;
+    display: block;
+  }
+  
+  .burger span
+  {
+    background: var(--default-color);
+    display: block;
+    width: 24px;
+    height: 3px;
+    margin-bottom: 3px;
+    position: relative;
+    top: 0;
+    transition: all ease-in-out .4s;
+  }
+  
+  .burger-container.open span:nth-child(2),
+  .burger-container.open span:nth-child(3)
+  {
+    width: 0;
+  }
+  
+  .burger-container.open span:nth-child(1)
+  {
+    transform: rotate(-45deg);
+    top: 9px;
+  }
+  
+  .burger-container.open span:nth-child(4)
+  {
+    transform: rotate(45deg);
+    top: -9px;
+  }
+  

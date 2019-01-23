@@ -1,3 +1,21 @@
-body, html {
-    height: 105%;
+:root {
+    --default-color: #6922B0;
 }
+body,html {height: 100%;}
+
+/*SCROLBAR!*/
+body::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--default-color);
+}
+/******************/
+.App, #root {height: 100%}
