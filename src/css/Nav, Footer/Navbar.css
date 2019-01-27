@@ -16,9 +16,9 @@
   .nav-link {
     color: var(--default-color);
     font-weight: 600;
-	font-family: 'PT Sans', sans-serif;
-	transition: all .3s;
-	font-size: 18px;
+    font-family: 'PT Sans', sans-serif;
+    transition: all .3s;
+    font-size: 18px;
   }
 
   .nav-link:hover{

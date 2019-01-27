@@ -36,7 +36,6 @@ class Navbar extends React.Component {
             <nav className="navbar navbar-expand-lg fixed-top">
                 {
                     (this.state.isLogedin) ? (
-
                         
                             <div className="container">
                                 <div className="navbar-brand"><img className="navbar-brand" alt="Logo" id="logo" src={ require('../../images/logo.png') } /></div>

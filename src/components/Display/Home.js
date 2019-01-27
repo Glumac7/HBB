@@ -1,12 +1,42 @@
 import React from 'react'
 import '../../css/Home.css';
 import '../../js/HomeJS';
+import Typing from 'react-typing-animation';
 
 export default function Home() {
   return (
     <div className="Home-component">
-      <div className="bg"></div>
-      <div className="asd">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad et necessitatibus cupiditate voluptate, sint vel rerum repudiandae, ut optio pariatur libero unde temporibus ipsum qui corporis! Quia quidem ea consequuntur!</div>
+      <div className="bg">
+        
+        <Typing className="asd">
+          <span id="main-headline">there is no <span>friend</span> as loyal as a <span>book.</span></span>
+        </Typing>
+
+        <section id="scroll-down">
+          <a href="#about-container"><span></span></a>
+        </section>
+
+        <div className="layer"></div>
+
+      </div>
+
+
+      <div id="about-container" className="container">
+        <div className="row">
+
+          <div className="col-md-6">
+            <h1>About</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus possimus odit veritatis magnam sequi qui in, cupiditate quam cum obcaecati inventore ea reprehenderit nihil saepe, omnis repudiandae odio eveniet id!</p>
+          </div>
+
+          <div id="about-photos" className="col-md-6">
+            <img src={  require('../../images/about-1.jpg')  } style={{  maxWidth: "50%"  }}alt=""/>
+            <img src={  require('../../images/about-2.jpg')  } style={{  maxWidth: "50%"  }}alt=""/>
+          </div>
+
+        </div>
+      </div>
     </div>
   )
 }
+
