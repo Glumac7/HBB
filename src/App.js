@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Display/Navbar';
 import Have from './components/Display/Have';
@@ -15,9 +15,10 @@ class App extends Component {
     isLogedin: false
   }
   
+  
   render() {
     return (
-      <BrowserRouter>
+      <Router>
         <div className="App">
         
           <Navbar isLogedin={this.state.isLogedin}></Navbar>
@@ -33,7 +34,7 @@ class App extends Component {
         
           
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
