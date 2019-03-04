@@ -1,5 +1,4 @@
 import React from 'react'
-import Footer from './Footer';
 import '../../css/Home.css';
 import '../../js/HomeJS';
 import Typing from 'react-typing-animation';
@@ -50,7 +49,6 @@ export default class Home extends React.Component {
           </div>
         </div>
         
-        <Footer></Footer>
       </div>
 
       

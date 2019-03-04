@@ -1,5 +1,6 @@
 :root {
     --default-color: #6922B0;
+    --default-font: 'Josefin Sans', sans-serif;
 }
 body,html {height: 100%; font-family: 'Josefin Sans', sans-serif;}
 
