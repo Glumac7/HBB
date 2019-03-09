@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../../css/Have.css';
-import $ from "jquery";
 import '../../js/HaveJS';
 
 export default class Have extends Component {
@@ -16,13 +15,14 @@ export default class Have extends Component {
         
         var allImgs = [];
 
-        for(let i = 0; i < 10; i++) 
+        for(let i = 20; i < 31; i++) 
         {
           allImgs.push(res.data.memes[i]);
         }
         
         this.setState({allImages: allImgs});
 
+        
       });
   }
 
@@ -49,17 +49,23 @@ export default class Have extends Component {
             
             <div className="col-md-6">
               <div id="fragment">
-                <img className="img-thumbnail" src={items[element_index].url} alt=""/>
-                <h1>ID: {items[element_index].id}</h1>
-                <p>NAME: {items[element_index].name}</p>
+                <img src={items[element_index].url} alt=""/>
+                <h1>TITLE: {items[element_index].id}</h1>
+                <div>
+                  <p>WRITER: {items[element_index].name}</p>
+                  <p>Genres: {items[element_index].name}</p>
+                </div>
               </div>
             </div>
 
             <div className="col-md-6">
               <div id="fragment">
-                <img className="img-thumbnail" src={items[element_index + 1].url} alt=""/>
-                <h1>ID: {items[element_index + 1].id}</h1>
-                <p>NAME: {items[element_index + 1].name}</p>
+                <img src={items[element_index + 1].url} alt=""/>
+                <h1>TITLE: {items[element_index + 1].id}</h1>
+                <div>
+                  <p>WRITER: {items[element_index + 1].name}</p>
+                  <p>Genres: {items[element_index + 1].name}</p>
+                </div>
               </div>
             </div>
 
@@ -73,9 +79,12 @@ export default class Have extends Component {
       {
         return (
           <div id="fragment" key={items[index].id}>
-            <img className="img-thumbnail" src={items[index].url} alt=""/>
-            <h1>ID: {items[index].id}</h1>
-            <p>NAME: {items[index].name}</p>
+            <img src={items[index].url} alt=""/>
+            <h1>TITLE: {items[index].id}</h1>
+            <div>
+              <p>WRITER: {items[index].name}</p>
+              <p>Genres: {items[index].name}</p>
+            </div>
           </div>
         )
       }
@@ -83,22 +92,11 @@ export default class Have extends Component {
       else return null;
       
     });
+    
   }
 
   componentDidMount() {
     this.getImages();
-    /* JQuery */
-    
-
-    $(document).ready( () => {
-      var height = 0;
-
-      $("#books .col-md-6").each(function(){
-           height = $(this).height(); 
-      });
-      console.log(height);
-      $("#fragment").height(height);
-    })
   }
 
   render() {

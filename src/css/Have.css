@@ -18,7 +18,7 @@ p,h1,h2,h3,h4,h5,h6 {
     #fragment {
         display: inline-block;
         margin: 1%;
-       
+        height: 98%;
         background-color: #fff
     }
 }
@@ -54,4 +54,32 @@ p,h1,h2,h3,h4,h5,h6 {
 
 #filter input {
     border: 1px solid rgba(105,34,176,.5);
+}
+
+#books .img-thumbnail {
+    max-height: 100%;
+}
+
+#books {
+    padding-bottom: 1%;
+}
+#fragment {
+    position: relative;
+}
+
+#fragment div {
+    
+    position: absolute;
+    bottom: 1%;
+    left: 1%;
+}
+
+#fragment h1 {
+    padding-top: 25px;
+    padding-bottom: 100px;
+}
+
+#fragment p {
+    text-align: left;
+    margin: 0;
 }
