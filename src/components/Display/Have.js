@@ -28,10 +28,25 @@ export default class Have extends Component {
 
   renderFilter() {
     return (
-      <div className="input-group mb-3">
-        <input type="text" className="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"></input>
-        <div className="input-group-append">
-          <button className="btn" type="button" id="button-addon2">Button</button>
+      <div id="form">
+        
+        <div className="input-group mb-3">
+          <select id="genres" className="form-control col-md-3">
+            <option>Choose a genre...</option>
+            <option>Fantasy</option>
+            <option>Westerns</option>
+            <option>Romance</option>
+            <option>Thriller</option>
+            <option>Mystery</option>
+          </select>
+
+          <input type="text" className="form-control col-md-3" placeholder="Writer..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
+
+          <input type="text" className="form-control" placeholder="Title..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
+          <div className="input-group-append">
+            <button className="btn" type="button" id="button-addon2">Search</button>
+            <button className="btn" type="button" id="button-addon2">Add</button>
+          </div>
         </div>
       </div>
     )
