@@ -1,0 +1,35 @@
+{
+    "data":
+    [
+        {
+            "cover": "./cover.jpg",
+            "title": "Title1",
+            "writer": "writer1",
+            "genre": "genre1"
+        },
+        {
+            "cover": "./cover.jpg",
+            "title": "Title2",
+            "writer": "writer2",
+            "genre": "genre2"
+        },
+        {
+            "cover": "./cover.jpg",
+            "title": "Title3",
+            "writer": "writer3",
+            "genre": "genre3"
+        },
+        {
+            "cover": "./cover.jpg",
+            "title": "Title4",
+            "writer": "writer4",
+            "genre": "genre4"
+        },
+        {
+            "cover": "./cover.jpg",
+            "title": "Title5",
+            "writer": "writer5",
+            "genre": "genre5"
+        }
+    ]
+}

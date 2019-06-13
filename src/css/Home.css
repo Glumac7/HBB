@@ -1,4 +1,8 @@
 /*Background image*/
+.App > #footer-container {
+    display: none;
+}
+
 .bg { 
     position: relative;
     /* The image used */

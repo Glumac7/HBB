@@ -1,5 +1,9 @@
 @import 'Have-background.css';
 
+.App > #footer-container {
+    display: block;
+}
+
 img {
     width: 100%;
 }

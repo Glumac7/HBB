@@ -3,6 +3,7 @@ import '../../css/Home.css';
 import '../../js/HomeJS';
 import Typing from 'react-typing-animation';
 import $ from "jquery";
+import Footer from './Footer';
 
 export default class Home extends React.Component {
 
@@ -48,7 +49,7 @@ export default class Home extends React.Component {
   
           </div>
         </div>
-        
+        <Footer></Footer>
       </div>
 
       
