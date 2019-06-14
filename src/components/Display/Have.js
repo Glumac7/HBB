@@ -13,6 +13,8 @@ export default class Have extends Component {
     title: "",*/
   }
 
+  //Fix Footer.js and other style import stuff...
+
   getImages = () => {
     
     var data_json = require("../../dummy.json");
@@ -32,86 +34,119 @@ export default class Have extends Component {
     var writerSearch = document.getElementById('writer').value;
     var titleSearch = document.getElementById('title').value;
 
-    //Add the filter functionality so that you could filter the search results!
-    
-    /*this.setState(
-      {
-        genre: genreSearch,
-        writer: writerSearch,
-        title: titleSearch
-      });*/
-
-      var obj_search = {}; //Obj that fild with searching data
-
-      if(genreSearch === "Choose a genre..." && titleSearch === "" && writerSearch === "") //If the inputs are empty...
-      {
-          this.setState({searched: false});
-          alert("Pleas fill the inputs before you wish to search them.");
-          return 0;
-      }
-      else //If at least one of the inputs is filed out...check which one if any are empty...
-      {
-        /* Just one input field fild out */
-        if(genreSearch === "Choose a genre..." && writerSearch === "")
-        {
-          obj_search.title = titleSearch;
-        }
-        else if(genreSearch === "Choose a genre..." && titleSearch === "")
-        {
-          obj_search.writer = writerSearch;
-        }
-        else if(writerSearch === "" && titleSearch === "")
-        {
-          obj_search.genre = genreSearch;
-        }
-
-        /*-----------------*/
-
-        /* Two input fields fild out */
-        else if(genreSearch === "Choose a genre...")
-        {
-          obj_search = { writer: writerSearch, title: titleSearch }
-        }
-        else if(writerSearch === "")
-        {
-          obj_search = { genre: genreSearch, title: titleSearch }
-        }
-        else if(titleSearch === "")
-        {
-          obj_search = { genre: genreSearch, writer: writerSearch }
-        }
-
-        /*-----------------*/
-
-        /* If all input fields are field out */
-        else
-        {
-          obj_search = {
-            genre: genreSearch,
-            writer: writerSearch,
-            title: titleSearch
-          }
-        }
-
-        /*-----------------*/
-      }
-
-      var allSearchBooks = [];
-
-      this.state.allImages.map(item => {
-
-        let genreCompare = item.genre.toLowerCase() === genreSearch.toLowerCase();
-        let titleCompare = item.title.toLowerCase() === titleSearch.toLowerCase();
-        let writerCompare = item.writer.toLowerCase() === writerSearch.toLowerCase();
-
-        if (titleCompare || writerCompare || genreCompare)
-        {
-          allSearchBooks.push(item);
-        }
+    if(genreSearch === "Choose a genre..." && titleSearch === "" && writerSearch === "") //If the inputs are empty...
+    {
+        this.setState({searched: false});
+        alert("Pleas fill the inputs before you wish to search them.");
         return 0;
-      });
+    }
+    else //If at least one of the inputs is filed out...check which one if any are empty...
+    {
+      var searchedElements;
+      var isTitle;
+      var isGenre;
+      var isWriter;
+      /* Just one input field fild out */
+      if(genreSearch === "Choose a genre..." && writerSearch === "")
+      {
+        searchedElements = this.state.allImages.filter( item => {
+          isTitle = item.title.toLowerCase() === titleSearch.toLowerCase();
+          return (isTitle);
+        });
+      }
+      else if(genreSearch === "Choose a genre..." && titleSearch === "")
+      {
+        searchedElements = this.state.allImages.filter( item => {
+          isWriter = item.writer.toLowerCase() === writerSearch.toLowerCase();
+          return (isWriter);
+        });
+      }
+      else if(writerSearch === "" && titleSearch === "")
+      {
+        searchedElements = this.state.allImages.filter( item => {
+          isGenre = item.genre.toLowerCase() === genreSearch.toLowerCase();
+          return (isGenre);
+        });
+      }
 
-      this.setState({searchedImages: allSearchBooks, searched: true});
+      /*-----------------*/
+
+      /* Two input fields fild out */
+      else if(genreSearch === "Choose a genre...")
+      {
+        searchedElements = this.state.allImages.filter( item => {
+          isTitle = item.title.toLowerCase() === titleSearch.toLowerCase();
+          isWriter = item.writer.toLowerCase() === writerSearch.toLowerCase();
+          return (isTitle && isWriter);
+        });
+      }
+      else if(writerSearch === "")
+      {
+        searchedElements = this.state.allImages.filter( item => {
+          isTitle = item.title.toLowerCase() === titleSearch.toLowerCase();
+          isGenre = item.genre.toLowerCase() === genreSearch.toLowerCase();
+          return (isTitle && isGenre);
+        });
+      }
+      else if(titleSearch === "")
+      {
+        searchedElements = this.state.allImages.filter( item => {
+          isGenre = item.genre.toLowerCase() === genreSearch.toLowerCase();
+          isWriter = item.writer.toLowerCase() === writerSearch.toLowerCase();
+          return (isGenre && isWriter);
+        });
+      }
+
+      /*-----------------*/
+
+      /* If all input fields are field out */
+      else
+      {
+        searchedElements = this.state.allImages.filter( item => {
+          isTitle = item.title.toLowerCase() === titleSearch.toLowerCase();
+          isGenre = item.genre.toLowerCase() === genreSearch.toLowerCase();
+          isWriter = item.writer.toLowerCase() === writerSearch.toLowerCase();
+          return (isTitle && isGenre && isWriter);
+        });
+      }
+
+      /*-----------------*/
+    }
+
+    this.setState({searchedImages: searchedElements, searched: true});
+  }
+
+  handleAdd = () => {
+    var genreSearch = document.getElementById('genres').value;
+    var writerSearch = document.getElementById('writer').value;
+    var titleSearch = document.getElementById('title').value;
+
+    if(genreSearch === "Choose a genre..." 
+    || titleSearch === "" 
+    || writerSearch === "") //If the inputs are empty...
+    {
+      alert("Pleas fill out all field.");
+    }
+    else
+    {
+      /* Check if it exists */
+
+      var exists = this.state.allImages.filter( item => {
+        return (item.title.toLowerCase() === titleSearch.toLowerCase() && item.writer.toLowerCase() === writerSearch.toLowerCase() && item.genre.toLowerCase() === genreSearch.toLowerCase());
+      })
+
+      if(exists.length === 0)
+      {
+        var newState = this.state.allImages;
+        newState.push({  cover: "./cover.jpg", title: titleSearch, writer: writerSearch, genre: genreSearch  });
+        
+        this.setState({ allImages: newState });
+      }
+      else
+      {
+        alert("This book already exists, try searching it.");
+      }
+    }
   }
 
   renderFilter() {
@@ -121,7 +156,7 @@ export default class Have extends Component {
         <div className="input-group mb-3">
           <select id="genres" defaultValue="" className="form-control col-md-3">
             <option>Choose a genre...</option>
-            <option>Fantasy</option>
+            <option>genre2</option>
             <option>Westerns</option>
             <option>Romance</option>
             <option>Thriller</option>
@@ -133,7 +168,7 @@ export default class Have extends Component {
           <input id="title" defaultValue="" type="text" className="form-control" placeholder="Title..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
           <div className="input-group-append">
             <button onClick={this.handleSearch} className="btn" type="button" id="button-addon2">Search</button>
-            <button onChange={this.handleAdd} className="btn" type="button" id="button-addon2">Add</button>
+            <button onClick={this.handleAdd} className="btn" type="button" id="button-addon2">Add</button>
           </div>
         </div>
       </div>
