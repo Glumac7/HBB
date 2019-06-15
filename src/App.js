@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Display/Navbar';
-import Footer from './components/Display/Footer';
 import Have from './components/Display/Have';
 import Buy from './components/Display/Buy';
 import Home from './components/Display/Home';
@@ -33,7 +32,6 @@ class App extends Component {
             <Route path="/signin" component={SigninFront}/>
           </Switch>
         
-          <Footer></Footer>
         </div>
       </Router>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import '../../css/Have.css';
 import '../../js/HaveJS';
+import Footer from './Footer';
 
 export default class Have extends Component {
 
@@ -12,8 +13,6 @@ export default class Have extends Component {
     writer: "",
     title: "",*/
   }
-
-  //Fix Footer.js and other style import stuff...
 
   getImages = () => {
     
@@ -298,6 +297,7 @@ export default class Have extends Component {
 
   render() {
     return (
+      <>
       <div id="Have-component">
         <div className="container text-center" id="books-container">
             
@@ -306,6 +306,8 @@ export default class Have extends Component {
 
         </div>
       </div>
+      <Footer/>
+      </>
     )
   }
 }
