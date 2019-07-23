@@ -9,7 +9,7 @@ export default class Buy extends Component {
       <div>
         <h1>Buy</h1>
         
-<Footer/>
+        <Footer/>
       </div>
     )
   }

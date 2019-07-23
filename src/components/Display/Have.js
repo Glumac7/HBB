@@ -36,7 +36,6 @@ export default class Have extends Component {
     if(genreSearch === "Choose a genre..." && titleSearch === "" && writerSearch === "") //If the inputs are empty...
     {
         this.setState({searched: false});
-        alert("Pleas fill the inputs before you wish to search them.");
         return 0;
     }
     else //If at least one of the inputs is filed out...check which one if any are empty...
