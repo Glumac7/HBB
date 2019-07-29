@@ -3333,6 +3333,23 @@
     -moz-transition: all 0.4s;
     transition: all 0.4s;
   }
+
+  #login-btn, #signup-btn {
+	  width: 48%;
+  }
+
+  #login-btn {
+	  margin-right: 2%;
+  }
+
+  #signup-btn {
+	  margin-left: 2%;
+  }
+
+  #signup-btn:hover, #login-btn:hover {
+	  color: #fff;
+	  opacity: .8;
+  }
   
   .login100-form-btn:hover {
     background-color: var(--default-color);

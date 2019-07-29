@@ -16,7 +16,7 @@
   .nav-link {
     color: var(--default-color);
     font-weight: 600;
-    font-family: 'PT Sans', sans-serif;
+    font-family: Ubuntu-Regular;
     transition: all .3s;
     font-size: 18px;
   }

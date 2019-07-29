@@ -15,7 +15,7 @@ p,h1,h2,h3,h4,h5,h6 {
 }
 
 #books-container {
-    border-radius: 12px;
+    border-radius: 5px;
 }
 
 @media (min-width: 768px) {

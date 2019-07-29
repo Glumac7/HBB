@@ -1,0 +1,16 @@
+#login-btn2, #signup-btn2 {
+    width: 48%;
+}
+
+#login-btn2 {
+    margin-left: 2%;
+}
+
+#signup-btn2 {
+    margin-right: 2%;
+}
+
+#signup-btn2:hover, #login-btn2:hover {
+    color: #fff;
+    opacity: .8;
+}

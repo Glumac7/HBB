@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
 import "../../../css/Auth_Style/Signin.css"
 
 export default class SigninFront extends Component {
@@ -41,9 +42,13 @@ export default class SigninFront extends Component {
               </div>
 
               <div className="container-login100-form-btn m-t-17">
-                <button className="login100-form-btn">
+                <button id="login-btn" className="login100-form-btn">
                   Login
                 </button>
+
+                <Link to="/signup" id="signup-btn" className="login100-form-btn">
+                  Sign up
+                </Link>
               </div>
 
             </form>

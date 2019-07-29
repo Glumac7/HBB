@@ -14,9 +14,9 @@
 }
 :root {
     --default-color: #6922B0;
-    --default-font: 'Josefin Sans', sans-serif;
+    --default-font: Ubuntu-Bold;
 }
-body,html {height: 100%; font-family: 'Josefin Sans', sans-serif;}
+body,html {height: 100%; font-family: Ubuntu-Regular;}
 
 /*SCROLBAR!*/
 body::-webkit-scrollbar-track {
