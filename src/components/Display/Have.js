@@ -123,7 +123,7 @@ export default class Have extends Component {
     || titleSearch === "" 
     || writerSearch === "") //If the inputs are empty...
     {
-      alert("Pleas fill out all field.");
+      alert("Please fill out all fields.");
     }
     else
     {
@@ -151,7 +151,7 @@ export default class Have extends Component {
     return (
       <div id="form">
         
-        <div className="input-group mb-3">
+        <div id="filter-container" className="input-group mb-3">
           <select id="genres" defaultValue="" className="form-control col-md-3">
             <option>Choose a genre...</option>
             <option>genre2</option>
@@ -160,12 +160,15 @@ export default class Have extends Component {
             <option>Thriller</option>
             <option>Mystery</option>
           </select>
-
+          
+          <input type="file" name="img-upload" id="img-upload-input" className="form-control col-md-3 inputfile inputfile-input" data-multiple-caption="{count} files selected" multiple></input>
+          <label htmlFor="img-label"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
+          
           <input id="writer" defaultValue="" type="text" className="form-control col-md-3" placeholder="Writer..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
 
-          <input id="title" defaultValue="" type="text" className="form-control" placeholder="Title..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
+          <input id="title" defaultValue="" type="text" className="form-control col-md-3" placeholder="Title..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
           <div className="input-group-append">
-            <button onClick={this.handleSearch} className="btn" type="button" id="button-addon2">Search</button>
+            <button onClick={this.handleSearch} className="btn" type="button" id="button-addon2" style={{borderRight: "1px solid #ced4da"}}>Search</button>
             <button onClick={this.handleAdd} className="btn" type="button" id="button-addon2">Add</button>
           </div>
         </div>
@@ -298,8 +301,11 @@ export default class Have extends Component {
     return (
       <>
       <div id="Have-component">
+        <span className="login100-form-title p-b-51">
+                Have
+        </span>
         <div className="container text-center" id="books-container">
-            
+        
             <div className="row" id="filter">{this.renderFilter()}</div>
             <div id="books">{this.renderBooks()}</div>
 

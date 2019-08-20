@@ -18,6 +18,21 @@ p,h1,h2,h3,h4,h5,h6 {
     border-radius: 5px;
 }
 
+#writer, #title, #genres {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+#title {
+    border-right: 2px solid #ced4da;
+}
+
+#filter-container {
+    width: 98%;
+    margin-top: .8%;
+    margin-left: 1%;
+}
+
 @media (min-width: 768px) {
     #fragment {
         display: inline-block;
@@ -36,8 +51,8 @@ p,h1,h2,h3,h4,h5,h6 {
 #Have-component .container {
     -webkit-box-shadow: 0px 4px 5px 0px rgba(105,34,176,1);
     -moz-box-shadow: 0px 4px 5px 0px rgba(105,34,176,1);
-    box-shadow: 0px 1px 5px 0px rgba(105,34,176,1);
-    background: #f4f4f4;
+    box-shadow: 0px 4px 5px 0px rgba(105,34,176,1);
+    background: #e4e4e4;
 }
 
 .img-thumbnail {
@@ -47,7 +62,7 @@ p,h1,h2,h3,h4,h5,h6 {
 #filter button {
     color: var(--default-color);
     background: #fff;
-    border: 1px solid var(--default-color);
+    /*border: 1px solid var(--default-color);*/
     transition: all .2s;
 }
 
@@ -55,11 +70,11 @@ p,h1,h2,h3,h4,h5,h6 {
     color: #fff;
     background: var(--default-color);
 }
-
+/*
 #filter input,
 #filter select {
     border: 1px solid rgba(105,34,176,.5);
-}
+}*/
 
 #books .img-thumbnail {
     max-height: 100%;
@@ -91,4 +106,56 @@ p,h1,h2,h3,h4,h5,h6 {
 
 #form {
     width: 100%;
+}
+
+#genres, label[for="img-label"], #img-upload-input {
+    font-family: var(--default-font);
+    height: auto !important;
+}
+
+label[for="img-label"] {
+   /* border-top: 1px solid rgba(105,34,176,.5);
+    border-bottom: 1px solid rgba(105,34,176,.5);
+    */background: #fff;
+}
+
+.inputfile + label {
+    max-width: 80%;
+    font-size: 1rem;
+    /* 20px */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+
+#img-upload-input{
+    display: none;
+}
+
+.inputfile + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    /* 4px */
+    margin-right: 0.25em;
+    /* 4px */
+}
+/* style 3 */
+
+.inputfile-input + label {
+    color: #495057;
+
+}
+
+.inputfile-input:focus + label,
+.inputfile-input.has-focus + label,
+.inputfile-input + label:hover {
+    color: #495057;
+
 }
