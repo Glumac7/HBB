@@ -55,6 +55,12 @@ p,h1,h2,h3,h4,h5,h6 {
     background: #e4e4e4;
 }
 
+#Have-component span.login100-form-title {
+    padding-top: 20px;
+    font-size: 3em;
+    padding-bottom: 76px;
+}
+
 .img-thumbnail {
     max-height: 10%;
 }
@@ -108,18 +114,18 @@ p,h1,h2,h3,h4,h5,h6 {
     width: 100%;
 }
 
-#genres, label[for="img-label"], #img-upload-input {
+#genres, label[for="file"], #file {
     font-family: var(--default-font);
     height: auto !important;
 }
 
-label[for="img-label"] {
+label[for="file"] {
    /* border-top: 1px solid rgba(105,34,176,.5);
     border-bottom: 1px solid rgba(105,34,176,.5);
     */background: #fff;
 }
 
-.inputfile + label {
+#file + label {
     max-width: 80%;
     font-size: 1rem;
     /* 20px */
@@ -132,11 +138,11 @@ label[for="img-label"] {
     /* 10px 20px */
 }
 
-#img-upload-input{
+#file{
     display: none;
 }
 
-.inputfile + label svg {
+#file + label svg {
     width: 1em;
     height: 1em;
     vertical-align: middle;
@@ -148,14 +154,14 @@ label[for="img-label"] {
 }
 /* style 3 */
 
-.inputfile-input + label {
+#file + label {
     color: #495057;
 
 }
 
-.inputfile-input:focus + label,
-.inputfile-input.has-focus + label,
-.inputfile-input + label:hover {
+#file:focus + label,
+#file.has-focus + label,
+#file + label:hover {
     color: #495057;
 
 }
