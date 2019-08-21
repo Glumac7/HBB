@@ -18,6 +18,16 @@ p,h1,h2,h3,h4,h5,h6 {
     border-radius: 5px;
 }
 
+#genres, #writer {
+    border-left: 0;
+    border-right: 2px solid #ced4da;
+}
+
+#writer {
+    border-right: 2px solid #ced4da;
+    border-left: 1px solid #ced4da;
+}
+
 #writer, #title, #genres {
     border-top: 0;
     border-bottom: 0;
@@ -156,12 +166,19 @@ label[for="file"] {
 
 #file + label {
     color: #495057;
-
 }
 
 #file:focus + label,
 #file.has-focus + label,
 #file + label:hover {
     color: #495057;
+}
 
+#input-cancel-button {
+    width: 44px;
+    border-left: 1px solid #ced4da;
+}
+
+.search-btn {
+    border-right: 2px solid #ced4da;
 }

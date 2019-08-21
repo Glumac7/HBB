@@ -28,10 +28,29 @@ export default class Have extends Component {
     this.setState({allImages: allImgs});
   }
 
+  /*
+  * 1) Image search not possible. --DONE--
+  * 2) Check to see if the file is an image file or some other file --DONE--
+  * 3) Add a button next to the 'Choose a file...' button  --DONE--
+  *   - Only visible and active when an image has bean uploaded
+  *     (Adding an event listener to the input field would be a good idea)
+  *   - On click it would make the value of the input field "" and display: none;
+  * 4) Adding the add functionality to the handleAdd()
+  *    and uploading the image to the image folder for later use
+  */
+
   handleSearch = () =>  {
     var genreSearch = document.getElementById('genres').value;
+    var imageSearch = document.getElementById('file').value;
     var writerSearch = document.getElementById('writer').value;
     var titleSearch = document.getElementById('title').value;
+
+    if(imageSearch !== "")
+    {
+      alert("Image search is not posible.");
+      this.setState({searched: false});
+      return 0;
+    }
 
     if(genreSearch === "Choose a genre..." && titleSearch === "" && writerSearch === "") //If the inputs are empty...
     {
@@ -116,19 +135,29 @@ export default class Have extends Component {
 
   handleAdd = () => {
     var genreSearch = document.getElementById('genres').value;
+    var imageSearch = document.getElementById('file').value;
     var writerSearch = document.getElementById('writer').value;
     var titleSearch = document.getElementById('title').value;
 
+    var imageExtension = imageSearch.substring(imageSearch.lastIndexOf('.')+1, imageSearch.length) || imageSearch;
+
+    if(imageExtension !== "jpg" 
+    || imageExtension !== "jpeg" 
+    || imageExtension !== "png")
+    {
+      alert("Only image files are accepted (jpg, jpeg, png)!");
+    }
+
     if(genreSearch === "Choose a genre..." 
     || titleSearch === "" 
-    || writerSearch === "") //If the inputs are empty...
+    || writerSearch === ""
+    || imageSearch === "") //If the inputs are empty...
     {
       alert("Please fill out all fields.");
     }
     else
     {
       /* Check if it exists */
-
       var exists = this.state.allImages.filter( item => {
         return (item.title.toLowerCase() === titleSearch.toLowerCase() && item.writer.toLowerCase() === writerSearch.toLowerCase() && item.genre.toLowerCase() === genreSearch.toLowerCase());
       })
@@ -163,12 +192,13 @@ export default class Have extends Component {
              
           <input type="file" name="file" id="file" className="form-control col-md-3 inputfile inputfile-input" data-multiple-caption="{count} files selected" multiple></input>
           <label htmlFor="file"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
+          <button id="input-cancel-button" style={{width: "44px", borderLeft: "1px solid #ced4da"}}>X</button>
 
           <input id="writer" defaultValue="" type="text" className="form-control col-md-3" placeholder="Writer..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
 
           <input id="title" defaultValue="" type="text" className="form-control col-md-3" placeholder="Title..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
           <div className="input-group-append">
-            <button onClick={this.handleSearch} className="btn" type="button" id="button-addon2" style={{borderRight: "1px solid #ced4da"}}>Search</button>
+            <button onClick={this.handleSearch} className="btn search-btn" type="button" id="button-addon2">Search</button>
             <button onClick={this.handleAdd} className="btn" type="button" id="button-addon2">Add</button>
           </div>
         </div>
