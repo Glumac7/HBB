@@ -14,8 +14,17 @@ export default class Have extends Component {
     title: "",*/
   }
 
+  handleChange = () => {
+    document.getElementById('input-cancel-button').style.display = "block";
+  }
+
+  handleX = (e) => {
+    document.getElementById('file').value = "";
+    e.target.style.display = "none";
+  }
+
   getImages = () => {
-    
+
     var data_json = require("../../dummy.json");
     
     var allImgs = [];
@@ -32,9 +41,9 @@ export default class Have extends Component {
   * 1) Image search not possible. --DONE--
   * 2) Check to see if the file is an image file or some other file --DONE--
   * 3) Add a button next to the 'Choose a file...' button  --DONE--
-  *   - Only visible and active when an image has bean uploaded
+  *   - Only visible and active when an image has bean uploaded --DONE--
   *     (Adding an event listener to the input field would be a good idea)
-  *   - On click it would make the value of the input field "" and display: none;
+  *   - On click it would make the value of the input field "" and display: none; --DONE--
   * 4) Adding the add functionality to the handleAdd()
   *    and uploading the image to the image folder for later use
   */
@@ -141,10 +150,13 @@ export default class Have extends Component {
 
     var imageExtension = imageSearch.substring(imageSearch.lastIndexOf('.')+1, imageSearch.length) || imageSearch;
 
-    if(imageExtension !== "jpg" 
-    || imageExtension !== "jpeg" 
-    || imageExtension !== "png")
+    var imageTrueExtension = imageExtension === "png" ? true : 
+                             (imageExtension === "jpg") ? true :
+                             (imageExtension === "jpeg") ? true : false
+
+    if(!imageTrueExtension)
     {
+      console.log(imageExtension === "png");
       alert("Only image files are accepted (jpg, jpeg, png)!");
     }
 
@@ -190,9 +202,9 @@ export default class Have extends Component {
             <option>Mystery</option>
           </select>          
              
-          <input type="file" name="file" id="file" className="form-control col-md-3 inputfile inputfile-input" data-multiple-caption="{count} files selected" multiple></input>
+          <input onChange={this.handleChange} type="file" name="file" id="file" className="form-control col-md-3 inputfile inputfile-input" data-multiple-caption="{count} files selected" multiple></input>
           <label htmlFor="file"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
-          <button id="input-cancel-button" style={{width: "44px", borderLeft: "1px solid #ced4da"}}>X</button>
+          <button onClick={this.handleX} id="input-cancel-button" style={{display: "none", width: "44px", borderLeft: "1px solid #ced4da"}}>X</button>
 
           <input id="writer" defaultValue="" type="text" className="form-control col-md-3" placeholder="Writer..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
 
