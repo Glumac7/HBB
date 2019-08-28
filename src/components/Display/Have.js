@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../../css/Have.css';
 import '../../js/HaveJS';
 import Footer from './Footer';
+import * as firebase from 'firebase';
 
 export default class Have extends Component {
 
@@ -9,12 +10,15 @@ export default class Have extends Component {
     allImages: [],
     searchedImages: [],
     searched: false,
-    /*genre: "",
-    writer: "",
-    title: "",*/
+    imgFile: null,
   }
 
-  handleChange = () => {
+  handleChange = event => {
+
+    var imgFile = event.target.files[0];
+    
+    this.setState({imgFile: imgFile});
+
     document.getElementById('input-cancel-button').style.display = "block";
   }
 
@@ -36,17 +40,6 @@ export default class Have extends Component {
     
     this.setState({allImages: allImgs});
   }
-
-  /*
-  * 1) Image search not possible. --DONE--
-  * 2) Check to see if the file is an image file or some other file --DONE--
-  * 3) Add a button next to the 'Choose a file...' button  --DONE--
-  *   - Only visible and active when an image has bean uploaded --DONE--
-  *     (Adding an event listener to the input field would be a good idea)
-  *   - On click it would make the value of the input field "" and display: none; --DONE--
-  * 4) Adding the add functionality to the handleAdd()
-  *    and uploading the image to the image folder for later use
-  */
 
   handleSearch = () =>  {
     var genreSearch = document.getElementById('genres').value;
@@ -142,6 +135,10 @@ export default class Have extends Component {
     this.setState({searchedImages: searchedElements, searched: true});
   }
 
+  fileSelectedHandler = event => {
+    console.log(event.target.files[0])
+  }
+
   handleAdd = () => {
     var genreSearch = document.getElementById('genres').value;
     var imageSearch = document.getElementById('file').value;
@@ -176,10 +173,45 @@ export default class Have extends Component {
 
       if(exists.length === 0)
       {
+
+        var trimGenreSearch = genreSearch.replace(/\s+/g, '');
+        var trimWriterSearch = writerSearch.replace(/\s+/g, '');
+        var trimTitleSearch = titleSearch.replace(/\s+/g, '');
+
+        var file = document.getElementById('file').files[0];
+
+        Object.defineProperty( file, "name", {
+            writable: true,
+            configurable: true,
+            enumerable: true
+          } );
+
+        file.name = trimGenreSearch + trimWriterSearch + trimTitleSearch + "." + imageExtension;
+
+        var storageRef = firebase.storage().ref('book_images/' + file.name);
+
+        storageRef.put(file).then(() => {
+
+          storageRef.getDownloadURL().then((e) => {
+
+            var lastStateElement = this.state.allImages.pop();
+            var modifiedLastStateElement = {cover: e, genre: lastStateElement.genre, title: lastStateElement.title, writer: lastStateElement.writer};
+            var modifiedState = this.state.allImages;
+
+            modifiedState.push(modifiedLastStateElement);
+
+            this.setState({allImages: modifiedState});
+            
+          })
+          
+        });
+
+        
         var newState = this.state.allImages;
-        newState.push({  cover: "./cover.jpg", title: titleSearch, writer: writerSearch, genre: genreSearch  });
+        newState.push({  cover: './cover.jpg', title: titleSearch, writer: writerSearch, genre: genreSearch  });
         
         this.setState({ allImages: newState });
+        
       }
       else
       {
@@ -217,6 +249,16 @@ export default class Have extends Component {
       </div>
     )
   }
+
+  // Add a button to the book container to the lower 
+  // right so that it is possible to delete that item.
+  //--------------------------------------------------
+  // Add a functionality so that it is possible to change 
+  // the dummy.json file which is supposed to be empty before enteries
+  //------------------------------------------------------------------
+  // Work on the styling for the image container
+  //--------------------------------------------
+  // Change the TITLE, WRITER and GENRE to different texts
 
   renderBooks() {
     var element_index = 0;
