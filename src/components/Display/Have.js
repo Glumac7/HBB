@@ -35,7 +35,7 @@ export default class Have extends Component {
 
     for(let i = 0; i < 5; i++) 
     {
-      allImgs.push(data_json.data[i]);
+      allImgs.push(data_json.users[0].data[i]);
     }
     
     this.setState({allImages: allImgs});
@@ -135,10 +135,6 @@ export default class Have extends Component {
     this.setState({searchedImages: searchedElements, searched: true});
   }
 
-  fileSelectedHandler = event => {
-    console.log(event.target.files[0])
-  }
-
   handleAdd = () => {
     var genreSearch = document.getElementById('genres').value;
     var imageSearch = document.getElementById('file').value;
@@ -189,13 +185,14 @@ export default class Have extends Component {
         file.name = trimGenreSearch + trimWriterSearch + trimTitleSearch + "." + imageExtension;
 
         var storageRef = firebase.storage().ref('book_images/' + file.name);
+        var stateLength = this.state.allImages.length + 1;
 
         storageRef.put(file).then(() => {
 
           storageRef.getDownloadURL().then((e) => {
 
             var lastStateElement = this.state.allImages.pop();
-            var modifiedLastStateElement = {cover: e, genre: lastStateElement.genre, title: lastStateElement.title, writer: lastStateElement.writer};
+            var modifiedLastStateElement = {cover: e, genre: lastStateElement.genre, title: lastStateElement.title, id: stateLength, writer: lastStateElement.writer};
             var modifiedState = this.state.allImages;
 
             modifiedState.push(modifiedLastStateElement);
@@ -208,7 +205,8 @@ export default class Have extends Component {
 
         
         var newState = this.state.allImages;
-        newState.push({  cover: './cover.jpg', title: titleSearch, writer: writerSearch, genre: genreSearch  });
+        
+        newState.push({  cover: './cover.jpg', title: titleSearch, id: stateLength, writer: writerSearch, genre: genreSearch  });
         
         this.setState({ allImages: newState });
         
@@ -250,24 +248,57 @@ export default class Have extends Component {
     )
   }
 
-  // Add a button to the book container to the lower 
-  // right so that it is possible to delete that item.
-  //--------------------------------------------------
+
   // Add a functionality so that it is possible to change 
   // the dummy.json file which is supposed to be empty before enteries
-  //------------------------------------------------------------------
-  // Work on the styling for the image container
-  //--------------------------------------------
-  // Change the TITLE, WRITER and GENRE to different texts
+
+  deleteOnClick = (e) => {
+    e.target.parentElement.parentElement.style.display = "none";
+  }
 
   renderBooks() {
-    var element_index = 0;
 
-    if(this.state.searched === false)
-    {
-      return this.state.allImages.map((value, index, items) => {
 
-        if(items[element_index + 1])
+      if(this.state.searched)
+      {
+        return this.state.searchedImages.map((value, index, items) => {
+        
+          return (
+            <div id="fragment" key={items[index].id}>
+              <img src={items[index].cover} alt=""/>
+              <h1>{items[index].title}</h1>
+              <div id="writer-genres">
+                <p>Writen by: {items[index].writer}</p>
+                <p>Genre: {items[index].genre}</p>
+              </div>
+              <div id="delete-book">
+                <button type="button" onClick={this.deleteOnClick}>X</button>
+              </div>
+            </div>
+          )
+        });
+      }
+      else
+      {
+        return this.state.allImages.map((value, index, items) => {
+        
+          return (
+            <div id="fragment" key={items[index].id}>
+              <img src={items[index].cover} alt=""/>
+              <h1>{items[index].title}</h1>
+              <div id="writer-genres">
+                <p>Writen by: {items[index].writer}</p>
+                <p>Genre: {items[index].genre}</p>
+              </div>
+              <div id="delete-book">
+                <button type="button" onClick={this.deleteOnClick}>X</button>
+              </div>
+            </div>
+          )
+        });
+      }
+    
+    {    /*if(items[element_index + 1])
         {
           return (
             <div className="row" key={items[element_index].title}>
@@ -275,10 +306,13 @@ export default class Have extends Component {
               <div className="col-md-6">
                 <div id="fragment">
                   <img src={items[element_index].cover} alt=""/>
-                  <h1>TITLE: {items[element_index].title}</h1>
-                  <div>
-                    <p>WRITER: {items[element_index].writer}</p>
-                    <p>Genres: {items[element_index].genre}</p>
+                  <h1>{items[element_index].title}</h1>
+                  <div id="writer-genres">
+                    <p>Writen by: {items[element_index].writer}</p>
+                    <p>Genre: {items[element_index].genre}</p>
+                  </div>
+                  <div id="delete-book">
+                    <button type="button" onClick={this.deleteOnClick}>X</button>
                   </div>
                 </div>
               </div>
@@ -286,10 +320,13 @@ export default class Have extends Component {
               <div className="col-md-6">
                 <div id="fragment">
                   <img src={items[element_index + 1].cover} alt=""/>
-                  <h1>TITLE: {items[element_index + 1].title}</h1>
-                  <div>
-                    <p>WRITER: {items[element_index + 1].writer}</p>
-                    <p>Genres: {items[element_index + 1].genre}</p>
+                  <h1>{items[element_index + 1].title}</h1>
+                  <div id="writer-genres">
+                    <p>Writen by: {items[element_index + 1].writer}</p>
+                    <p>Genre: {items[element_index + 1].genre}</p>
+                  </div>
+                  <div id="delete-book">
+                    <button type="button" onClick={this.deleteOnClick}>X</button>
                   </div>
                 </div>
               </div>
@@ -305,10 +342,13 @@ export default class Have extends Component {
           return (
             <div id="fragment" key={items[index].title}>
               <img src={items[index].cover} alt=""/>
-              <h1>TITLE: {items[index].title}</h1>
-              <div>
-                <p>WRITER: {items[index].writer}</p>
-                <p>Genres: {items[index].genre}</p>
+              <h1>{items[index].title}</h1>
+              <div id="writer-genres">
+                <p>Writen by: {items[index].writer}</p>
+                <p>Genre: {items[index].genre}</p>
+              </div>
+              <div id="delete-book">
+                <button type="button" onClick={this.deleteOnClick}>X</button>
               </div>
             </div>
           )
@@ -317,9 +357,9 @@ export default class Have extends Component {
         else return null;
         
       });
-    }
+    }*/
 
-    else 
+    /*else 
     {
       return this.state.searchedImages.map((value, index, items) => {
 
@@ -331,10 +371,13 @@ export default class Have extends Component {
               <div className="col-md-6">
                 <div id="fragment">
                   <img src={items[element_index].cover} alt=""/>
-                  <h1>TITLE: {items[element_index].title}</h1>
-                  <div>
-                    <p>WRITER: {items[element_index].writer}</p>
-                    <p>Genres: {items[element_index].genre}</p>
+                  <h1>{items[element_index].title}</h1>
+                  <div id="writer-genres">
+                    <p>Writen by: {items[element_index].writer}</p>
+                    <p>Genre: {items[element_index].genre}</p>
+                  </div>
+                  <div id="delete-book">
+                    <button type="button" onClick={this.deleteOnClick}>X</button>
                   </div>
                 </div>
               </div>
@@ -342,10 +385,13 @@ export default class Have extends Component {
               <div className="col-md-6">
                 <div id="fragment">
                   <img src={items[element_index + 1].cover} alt=""/>
-                  <h1>TITLE: {items[element_index + 1].title}</h1>
-                  <div>
-                    <p>WRITER: {items[element_index + 1].writer}</p>
-                    <p>Genres: {items[element_index + 1].genre}</p>
+                  <h1>{items[element_index + 1].title}</h1>
+                  <div id="writer-genres">
+                    <p>Writen by: {items[element_index + 1].writer}</p>
+                    <p>Genre: {items[element_index + 1].genre}</p>
+                  </div>
+                  <div id="delete-book">
+                    <button type="button" onClick={this.deleteOnClick}>X</button>
                   </div>
                 </div>
               </div>
@@ -361,10 +407,13 @@ export default class Have extends Component {
           return (
             <div id="fragment" key={items[index].title}>
               <img src={items[index].cover} alt=""/>
-              <h1>TITLE: {items[index].title}</h1>
-              <div>
-                <p>WRITER: {items[index].writer}</p>
-                <p>Genres: {items[index].genre}</p>
+              <h1>{items[index].title}</h1>
+              <div id="writer-genres">
+                <p>Writen by: {items[index].writer}</p>
+                <p>Genre: {items[index].genre}</p>
+              </div>
+              <div id="delete-book">
+                <button type="button" onClick={this.deleteOnClick}>X</button>
               </div>
             </div>
           )
@@ -373,7 +422,7 @@ export default class Have extends Component {
         else return null;
         
       });
-    }
+    }*/}
     
   }
 

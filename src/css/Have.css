@@ -101,9 +101,11 @@ p,h1,h2,h3,h4,h5,h6 {
 }
 #fragment {
     position: relative;
+    display: inline-block;
+    width: 48%;
 }
 
-#fragment div {
+#writer-genres {
     
     position: absolute;
     bottom: 1%;
@@ -181,4 +183,19 @@ label[for="file"] {
 
 .search-btn {
     border-right: 2px solid #ced4da;
+}
+
+#delete-book {
+    text-align: right;
+
+}
+
+#delete-book button{
+    transition: all .3s;
+    padding-right: 2%;
+    font-size: 30px;
+}
+
+#delete-book button:hover {
+    color: var(--default-color);
 }
