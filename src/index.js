@@ -17,8 +17,8 @@ var firebaseConfig = {
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-
-  var message = require("./dummy.json");
+  
+ /* var message = require("./dummy.json");
   var ref = firebase.database().ref().child('node-client');
   var logsRef = ref.child('logs');
   var messagesRef = ref.child("messages");
@@ -40,7 +40,7 @@ var firebaseConfig = {
 
   ref.child('logs').on('value', function(snap) {
     console.log('value', snap.val());
-  });
+  });*/
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

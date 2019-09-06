@@ -60,7 +60,7 @@ class Navbar extends React.Component {
                                             <Link className="nav-link" to="/buy">Buy</Link>
                                         </li>
                                         <li className="nav-item">
-                                            <Link className="nav-link" onClick={this.handleClick} to="/">Log Out</Link>
+                                            <Link id="logout" className="nav-link" onClick={this.handleClick} to="/logout">Log Out</Link>
                                         </li>
                                     </ul>
                                 </div>
