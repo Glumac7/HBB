@@ -1,8 +1,39 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import "../../../css/Auth_Style/Signin.css"
+import * as firebase from 'firebase';
 
 export default class SigninFront extends Component {
+
+  /*
+  --USE THE FUNCTION BELOW TO SETUP WHEN CERTAIN PAGES WILL BE DISPLAYED--
+    auth.onAuthStateChanged(user => {
+      if(user){
+        console.log("user logged in", user)
+      }
+      else
+      {
+        console.log('user logged out)
+      }
+    })
+  */
+
+  addUsers = () => {
+  
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    var firestore = require('firebase/firestore');
+
+    firestore = firebase.auth();
+
+    firestore.signInWithEmailAndPassword(email, password)
+      .then(cred => {
+        console.log(cred)
+      })
+
+  }
+
   render() {
     return (
       <>
@@ -15,14 +46,14 @@ export default class SigninFront extends Component {
               </span>
 
               
-              <div className="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-                <input className="input100" type="text" name="username" placeholder="Username"></input>
+              <div className="wrap-input100 validate-input m-b-16" data-validate = "E-Mail is required">
+                <input id="login-email" className="input100" type="email" name="e-mail" placeholder="E-Mail"></input>
                 <span className="focus-input100"></span>
               </div>
               
               
               <div className="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                <input className="input100" type="password" name="pass" placeholder="Password"></input>
+                <input id="login-password" className="input100" type="password" name="pass" placeholder="Password"></input>
                 <span className="focus-input100"></span>
               </div>
               
@@ -42,7 +73,7 @@ export default class SigninFront extends Component {
               </div>
 
               <div className="container-login100-form-btn m-t-17">
-                <button id="login-btn" className="login100-form-btn">
+                <button onClick={this.addUsers} id="login-btn" className="login100-form-btn" type="button">
                   Login
                 </button>
 

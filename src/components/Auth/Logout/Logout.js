@@ -19,6 +19,7 @@ export default class Logout extends Component {
   componentDidMount() {
     this.logout()
   }
+  
   render() {
     return (
       <div>
