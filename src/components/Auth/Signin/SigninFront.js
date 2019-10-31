@@ -5,20 +5,12 @@ import * as firebase from 'firebase';
 
 export default class SigninFront extends Component {
 
-  /*
-  --USE THE FUNCTION BELOW TO SETUP WHEN CERTAIN PAGES WILL BE DISPLAYED--
-    auth.onAuthStateChanged(user => {
-      if(user){
-        console.log("user logged in", user)
-      }
-      else
-      {
-        console.log('user logged out)
-      }
-    })
-  */
+  
+  //--USE THE FUNCTION BELOW TO SETUP WHEN CERTAIN PAGES WILL BE DISPLAYED--
 
-  addUsers = () => {
+  
+
+  loginUsers = () => {
   
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
@@ -27,10 +19,7 @@ export default class SigninFront extends Component {
 
     firestore = firebase.auth();
 
-    firestore.signInWithEmailAndPassword(email, password)
-      .then(cred => {
-        console.log(cred)
-      })
+    firestore.signInWithEmailAndPassword(email, password);
 
   }
 
@@ -73,7 +62,7 @@ export default class SigninFront extends Component {
               </div>
 
               <div className="container-login100-form-btn m-t-17">
-                <button onClick={this.addUsers} id="login-btn" className="login100-form-btn" type="button">
+                <button onClick={this.loginUsers} id="login-btn" className="login100-form-btn" type="button">
                   Login
                 </button>
 

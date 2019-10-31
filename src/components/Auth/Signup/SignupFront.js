@@ -15,10 +15,7 @@ export default class SignupFront extends Component {
 
     firestore = firebase.auth();
 
-    firestore.createUserWithEmailAndPassword(email, password)
-      .then((cred) => {
-        console.log(cred);
-      });
+    firestore.createUserWithEmailAndPassword(email, password);
   }
 
   render() {

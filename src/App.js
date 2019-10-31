@@ -8,15 +8,29 @@ import Home from './components/Display/Home';
 import Logout from './components/Auth/Logout/Logout';
 import SignupFront from './components/Auth/Signup/SignupFront';
 import SigninFront from './components/Auth/Signin/SigninFront';
+import * as firebase from 'firebase';
 
 class App extends Component {
 
   state = {
     isLogedin: false
   }
-  
-  
+
   render() {
+
+    //Checks if the User is loged in or not and displayes the corresponing message
+    var firestore = firebase.auth();
+
+    firestore.onAuthStateChanged(user => {
+      if(user){
+        console.log(user.uid);
+      }
+      else
+      {
+        console.log("0");
+      }
+    })
+
     return (
       <Router>
         <div className="App">

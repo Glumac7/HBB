@@ -3,6 +3,8 @@ import '../../css/Have.css';
 import '../../js/HaveJS';
 import Footer from './Footer';
 import * as firebase from 'firebase';
+import 'firebase/firestore';
+
 
 export default class Have extends Component {
 
@@ -29,19 +31,27 @@ export default class Have extends Component {
 
   getImages = () => {
 
-    var data_json = require("../../dummy.json");
-    
-    var allImgs = [];
+    var db = firebase.firestore();
+    var allImages = [];
 
-    for(let i = 0; i < 5; i++) 
-    {
-      allImgs.push(data_json.users[0].data[i]);
-    }
-    
-    this.setState({allImages: allImgs});
+    db.collection('users').get()
+      .then(snapshot => {
+
+        const snapDocs = snapshot.docs;
+
+        snapDocs.forEach(doc => {
+          const guide = doc.data();
+          console.log(guide);
+          allImages.push(guide);
+          this.setState({allImages: allImages})
+        })
+        
+      })
+
   }
 
   handleSearch = () =>  {
+
     var genreSearch = document.getElementById('genres').value;
     var imageSearch = document.getElementById('file').value;
     var writerSearch = document.getElementById('writer').value;
@@ -136,6 +146,15 @@ export default class Have extends Component {
   }
 
   handleAdd = () => {
+
+    var db = firebase.firestore();
+
+    // Implement this functionality insted of the state
+    // figute out how to have a specific image for each upload and
+    // How to retrive it
+
+    
+
     var genreSearch = document.getElementById('genres').value;
     var imageSearch = document.getElementById('file').value;
     var writerSearch = document.getElementById('writer').value;
@@ -184,6 +203,8 @@ export default class Have extends Component {
 
         file.name = trimGenreSearch + trimWriterSearch + trimTitleSearch + "." + imageExtension;
 
+        var usersName = trimGenreSearch + trimWriterSearch + trimTitleSearch;
+        
         var storageRef = firebase.storage().ref('book_images/' + file.name);
         var stateLength = this.state.allImages.length + 1;
 
@@ -192,12 +213,26 @@ export default class Have extends Component {
           storageRef.getDownloadURL().then((e) => {
 
             var lastStateElement = this.state.allImages.pop();
-            var modifiedLastStateElement = {cover: e, genre: lastStateElement.genre, title: lastStateElement.title, id: stateLength, writer: lastStateElement.writer};
+            var modifiedLastStateElement = {cover: e, genre: lastStateElement.genre, title: lastStateElement.title, id: usersName, writer: lastStateElement.writer};
             var modifiedState = this.state.allImages;
 
-            modifiedState.push(modifiedLastStateElement);
+            modifiedState.push(modifiedLastStateElement);            
 
             this.setState({allImages: modifiedState});
+
+            db.collection("users").doc(usersName).set({
+              cover: e,
+              genre: lastStateElement.genre,
+              title: lastStateElement.title,
+              id: usersName,
+              writer: lastStateElement.writer
+            })
+            .then(function() {
+                console.log("Document successfully written!");
+            })
+            .catch(function(error) {
+                console.error("Error writing document: ", error);
+            });
             
           })
           
@@ -206,7 +241,7 @@ export default class Have extends Component {
         
         var newState = this.state.allImages;
         
-        newState.push({  cover: './cover.jpg', title: titleSearch, id: stateLength, writer: writerSearch, genre: genreSearch  });
+        newState.push({  cover: './cover.gif', title: titleSearch, id: stateLength, writer: writerSearch, genre: genreSearch  });
         
         this.setState({ allImages: newState });
         
@@ -253,11 +288,21 @@ export default class Have extends Component {
   // the dummy.json file which is supposed to be empty before enteries
 
   deleteOnClick = (e) => {
+
+    var db = firebase.firestore();
+    
+    var h1 = e.target.parentElement.parentElement.querySelector('h1').querySelector('b').innerText.replace(/\s+/g, '');;
+    var p1 = e.target.parentElement.parentElement.querySelectorAll('p')[0].querySelector('b').innerText.replace(/\s+/g, '');;
+    var p2 = e.target.parentElement.parentElement.querySelectorAll('p')[1].querySelector('b').innerText.replace(/\s+/g, '');;
+    
+    var element = p2+p1+h1;
+
+    db.collection('users').doc(element+"").delete();
+
     e.target.parentElement.parentElement.style.display = "none";
   }
 
   renderBooks() {
-
 
       if(this.state.searched)
       {
@@ -266,10 +311,10 @@ export default class Have extends Component {
           return (
             <div id="fragment" key={items[index].id}>
               <img src={items[index].cover} alt=""/>
-              <h1>{items[index].title}</h1>
+              <h1><b>{items[index].title}</b></h1>
               <div id="writer-genres">
-                <p>Writen by: {items[index].writer}</p>
-                <p>Genre: {items[index].genre}</p>
+                <p>Writen by: <b>{items[index].writer}</b></p>
+                <p>Genre: <b>{items[index].genre}</b></p>
               </div>
               <div id="delete-book">
                 <button type="button" onClick={this.deleteOnClick}>X</button>
@@ -285,10 +330,10 @@ export default class Have extends Component {
           return (
             <div id="fragment" key={items[index].id}>
               <img src={items[index].cover} alt=""/>
-              <h1>{items[index].title}</h1>
+              <h1><b>{items[index].title}</b></h1>
               <div id="writer-genres">
-                <p>Writen by: {items[index].writer}</p>
-                <p>Genre: {items[index].genre}</p>
+                <p>Writen by: <b>{items[index].writer}</b></p>
+                <p>Genre: <b>{items[index].genre}</b></p>
               </div>
               <div id="delete-book">
                 <button type="button" onClick={this.deleteOnClick}>X</button>
