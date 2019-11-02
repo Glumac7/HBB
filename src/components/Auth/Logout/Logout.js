@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as firebase from 'firebase'
+import {Redirect} from 'react-router-dom';
 
 export default class Logout extends Component {
 
@@ -8,7 +9,12 @@ export default class Logout extends Component {
 
     firestore = firebase.auth();
 
-    firestore.signOut();
+    firestore.signOut()
+    .then(() => {
+      
+      console.log("Loged out!");
+    });
+    return <Redirect to='/signin' />
   }
 
   //Continue with the video playliste: https://www.youtube.com/watch?v=JWeoQn6KB0o&list=PL4cUxeGkcC9jUPIes_B8vRjn1_GaplOPQ&index=7
@@ -20,7 +26,7 @@ export default class Logout extends Component {
   render() {
     return (
       <div>
-        <h1>Logout</h1>
+        {this.logout()}
       </div>
     )
   }

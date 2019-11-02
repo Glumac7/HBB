@@ -3415,6 +3415,23 @@
     visibility: visible;
     opacity: 1;
   }
+
+  #signinErrX {
+	margin: 9px 0;
+	width: 100%;
+	margin-top: 26px;
+	padding: 15px 0;
+	font-size: 18px;
+	color: #fff;
+	background: var(--default-color);
+	text-align: center;
+  }
+
+  #signinErrP {
+	  color: red;
+	  font-size: 18px;
+  }
+
   
   @media (max-width: 992px) {
     .alert-validate::before {

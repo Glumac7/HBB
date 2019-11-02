@@ -13,23 +13,36 @@ import * as firebase from 'firebase';
 class App extends Component {
 
   state = {
-    isLogedin: false
+    isLogedin: false,
+    boolian: false,
+    userEmail: ""
+  }
+
+  logit = (email) => {
+    this.setState({userEmail: email, isLogedin: true});
+  }
+
+  componentDidMount() {
+    var firestore = firebase.auth();
+    
+    firestore.onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in.
+        /*if(!this.state.boolian) 
+        {*/
+          this.logit(user.email);
+          console.log(this.state.userEmail);
+        /*}*/
+
+      } else {
+        // No user is signed in.
+        console.log("No user is signed in.")
+      }
+
+    })
   }
 
   render() {
-
-    //Checks if the User is loged in or not and displayes the corresponing message
-    var firestore = firebase.auth();
-
-    firestore.onAuthStateChanged(user => {
-      if(user){
-        console.log(user.uid);
-      }
-      else
-      {
-        console.log("0");
-      }
-    })
 
     return (
       <Router>
@@ -39,7 +52,7 @@ class App extends Component {
         
           <Switch>
             <Route exact path="/" component={Home}/>
-            <Route path="/have" component={Have}/>
+            <Route path="/have" render={prop => <Have {...prop} userEmail={this.state.userEmail}/>}/>
             <Route path="/buy" component={Buy}/>
             <Route path="/logout" component={Logout}/>
             <Route path="/signup" component={SignupFront}/>

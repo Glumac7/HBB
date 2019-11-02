@@ -14,3 +14,19 @@
     color: #fff;
     opacity: .8;
 }
+
+#signupErrX {
+	margin: 9px 0;
+	width: 100%;
+	margin-top: 26px;
+	padding: 15px 0;
+	font-size: 18px;
+	color: #fff;
+	background: var(--default-color);
+	text-align: center;
+  }
+
+  #signupErrP {
+	  color: red;
+	  font-size: 18px;
+  }

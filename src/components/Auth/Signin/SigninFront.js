@@ -1,31 +1,66 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import "../../../css/Auth_Style/Signin.css"
 import * as firebase from 'firebase';
 
 export default class SigninFront extends Component {
 
-  
-  //--USE THE FUNCTION BELOW TO SETUP WHEN CERTAIN PAGES WILL BE DISPLAYED--
+  state = {
+    redirect: false,
+    errMessage: "",
+    err: false,
+    displayXClicked: false
+  }
 
-  
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/have' />
+    }
+  }
+
+  deleteOnClick = (e) => {
+
+    e.preventDefault();
+    document.getElementById("signinErrDiv").style.display = "none";
+    this.setState({displayXClicked: true})
+  }
 
   loginUsers = () => {
   
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
+    var email = document.getElementById('login-email').value;
+    var password = document.getElementById('login-password').value;
 
     var firestore = require('firebase/firestore');
 
     firestore = firebase.auth();
 
-    firestore.signInWithEmailAndPassword(email, password);
+    firestore.signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log("1");
+        this.setState({
+          redirect: true
+        })
+      })
+      .catch(err => {
+        if(this.state.displayXClicked)
+        {
+          document.getElementById("signinErrDiv").style.display = "block";
+          this.setState({displayXClicked: false})
+        }
+        else {
+          this.setState({errMessage: err.message, err: true})
+        }
+        
+      });
 
   }
 
   render() {
     return (
       <>
+      { (this.state.redirect) ? this.renderRedirect() : (
+
       <div className="limiter">
         <div className="container-login100">
           <div className="wrap-login100 p-t-50 p-b-90">
@@ -61,6 +96,11 @@ export default class SigninFront extends Component {
                 </div>
               </div>
 
+              {(this.state.err) ? (<div id="signinErrDiv">
+                <p id="signinErrP">{this.state.errMessage}</p>
+                <button id="signinErrX" onClick={this.deleteOnClick}>X</button>
+              </div>) : "" }
+
               <div className="container-login100-form-btn m-t-17">
                 <button onClick={this.loginUsers} id="login-btn" className="login100-form-btn" type="button">
                   Login
@@ -75,6 +115,7 @@ export default class SigninFront extends Component {
           </div>
         </div>
       </div>
+      )}
       </>
     )
   }

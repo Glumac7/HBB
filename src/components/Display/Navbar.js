@@ -27,7 +27,7 @@ class Navbar extends React.Component {
         isLogedin: this.props.isLogedin
     }
 
-    handleClick = () => {   this.setState({isLogedin: !this.state.isLogedin})  }
+    handleClick = () => {  this.setState({isLogedin: !this.state.isLogedin})  }
     
     render() {
         var burgerIcon = () => burger_icon();
@@ -38,7 +38,7 @@ class Navbar extends React.Component {
                     (this.state.isLogedin) ? (
                         
                             <div className="container">
-                                <div className="navbar-brand"><img className="navbar-brand" alt="Logo" id="logo" src={ require('../../images/logo.png') } /></div>
+                            <Link to="/"><div className="navbar-brand"><img className="navbar-brand" alt="Logo" id="logo" src={ require('../../images/logo.png') } /></div></Link>
 
                                 <button id="nav-button" className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" onClick={burgerIcon}>
                                     <div className="burger-container">
@@ -71,7 +71,7 @@ class Navbar extends React.Component {
 
                         
                             <div className="container">
-                                <div className="navbar-brand"><img className="navbar-brand" alt="Logo" id="logo" src={ require('../../images/logo.png') } /></div>
+                            <Link to="/"><div className="navbar-brand"><img className="navbar-brand" alt="Logo" id="logo" src={ require('../../images/logo.png') } /></div></Link>
 
                                 <button id="nav-button" className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" onClick={burgerIcon}>
                                     <div className="burger-container">

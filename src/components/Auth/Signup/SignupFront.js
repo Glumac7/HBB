@@ -2,25 +2,86 @@ import React, { Component } from 'react'
 import "../../../css/Auth_Style/Signup.css";
 import {Link} from 'react-router-dom';
 import * as firebase from 'firebase';
+import {Redirect} from 'react-router-dom';
 
 
 export default class SignupFront extends Component {
 
+  state = {
+    redirect: false,
+    errMessage: "",
+    err: false,
+    displayXClicked: false
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/signin' />
+    }
+  }
+
+  deleteOnClick = (e) => {
+
+    e.preventDefault();
+    document.getElementById("signupErrDiv").style.display = "none";
+    this.setState({displayXClicked: true})
+  }
+
   addUsers = () => {
 
+    const username = document.getElementById('username').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
+
+    var db = firebase.firestore();
+    var forState = this;
 
     var firestore = require('firebase/firestore');
 
     firestore = firebase.auth();
+    //One collection "users" and in each user(id is username that was given by signup)
+    //a 'books' collection
+    //where the user can upload as much books as he pleases.
 
-    firestore.createUserWithEmailAndPassword(email, password);
+    firestore.createUserWithEmailAndPassword(email, password)
+    .then(() => {
+
+      console.log("1");
+      
+
+      db.collection("users").doc(email).set({
+        username: username,
+        eMail: email,
+      })
+      .then(function() {
+        forState.setState({
+          redirect: true
+        })
+          console.log("Document successfully written!");
+      })
+      .catch(function(error) {
+          console.error("Error writing document: ", error);
+      });
+
+    })
+    .catch(err => {
+      if(this.state.displayXClicked)
+      {
+        document.getElementById("signupErrDiv").style.display = "block";
+        this.setState({displayXClicked: false})
+      }
+      else {
+        this.setState({errMessage: err.message, err: true})
+      }
+      
+    });
+
   }
 
   render() {
     return (
       <>
+      { (this.state.redirect) ? this.renderRedirect() : (
       <div className="limiter">
         <div className="container-login100">
           <div className="wrap-login100 p-t-50 p-b-90">
@@ -31,7 +92,7 @@ export default class SignupFront extends Component {
 
               
               <div className="wrap-input100 validate-input m-b-16" data-validate = "Username is required">
-                <input className="input100" type="text" name="username" placeholder="Username"></input>
+                <input id="username" className="input100" type="text" name="username" placeholder="Username"></input>
                 <span className="focus-input100"></span>
               </div>
 
@@ -65,6 +126,11 @@ export default class SignupFront extends Component {
                 </div>
               </div>
 
+              {(this.state.err) ? (<div id="signupErrDiv">
+                <p id="signupErrP">{this.state.errMessage}</p>
+                <button id="signupErrX" onClick={this.deleteOnClick}>X</button>
+              </div>) : "" }
+
               <div className="container-login100-form-btn m-t-17">
                 <button onClick={this.addUsers} id="signup-btn2" className="login100-form-btn" type="button">
                   Sign up
@@ -79,6 +145,7 @@ export default class SignupFront extends Component {
           </div>
         </div>
       </div>
+      )}
       </>
     )
   }

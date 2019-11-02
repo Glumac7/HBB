@@ -33,21 +33,30 @@ export default class Have extends Component {
 
     var db = firebase.firestore();
     var allImages = [];
+    var usernamee = "";
+    var justThis = this;
 
-    db.collection('users').get()
-      .then(snapshot => {
+    new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        resolve(justThis.props.userEmail);
+      }, 0);
+    })
+    .then(value => {
+      usernamee = value;
 
-        const snapDocs = snapshot.docs;
+      db.collection('users').doc(usernamee).collection('books').get()
+          .then(snapshot => {
+            const snapDocs = snapshot.docs;
 
-        snapDocs.forEach(doc => {
-          const guide = doc.data();
-          console.log(guide);
-          allImages.push(guide);
-          this.setState({allImages: allImages})
-        })
-        
-      })
-
+            snapDocs.forEach(doc => {
+              const guide = doc.data();
+              allImages.push(guide);
+              this.setState({allImages: allImages})
+            })
+            
+          })
+    });
+      
   }
 
   handleSearch = () =>  {
@@ -149,12 +158,6 @@ export default class Have extends Component {
 
     var db = firebase.firestore();
 
-    // Implement this functionality insted of the state
-    // figute out how to have a specific image for each upload and
-    // How to retrive it
-
-    
-
     var genreSearch = document.getElementById('genres').value;
     var imageSearch = document.getElementById('file').value;
     var writerSearch = document.getElementById('writer').value;
@@ -220,7 +223,7 @@ export default class Have extends Component {
 
             this.setState({allImages: modifiedState});
 
-            db.collection("users").doc(usersName).set({
+            db.collection("users").doc(this.props.userEmail+"").collection('books').doc(usersName+"").set({
               cover: e,
               genre: lastStateElement.genre,
               title: lastStateElement.title,
@@ -254,6 +257,7 @@ export default class Have extends Component {
   }
 
   renderFilter() {
+
     return (
       <div id="form">
         
@@ -297,7 +301,7 @@ export default class Have extends Component {
     
     var element = p2+p1+h1;
 
-    db.collection('users').doc(element+"").delete();
+    db.collection('users').doc(this.props.userEmail).collection('books').doc(element).delete();
 
     e.target.parentElement.parentElement.style.display = "none";
   }
@@ -343,136 +347,11 @@ export default class Have extends Component {
         });
       }
     
-    {    /*if(items[element_index + 1])
-        {
-          return (
-            <div className="row" key={items[element_index].title}>
-              
-              <div className="col-md-6">
-                <div id="fragment">
-                  <img src={items[element_index].cover} alt=""/>
-                  <h1>{items[element_index].title}</h1>
-                  <div id="writer-genres">
-                    <p>Writen by: {items[element_index].writer}</p>
-                    <p>Genre: {items[element_index].genre}</p>
-                  </div>
-                  <div id="delete-book">
-                    <button type="button" onClick={this.deleteOnClick}>X</button>
-                  </div>
-                </div>
-              </div>
-  
-              <div className="col-md-6">
-                <div id="fragment">
-                  <img src={items[element_index + 1].cover} alt=""/>
-                  <h1>{items[element_index + 1].title}</h1>
-                  <div id="writer-genres">
-                    <p>Writen by: {items[element_index + 1].writer}</p>
-                    <p>Genre: {items[element_index + 1].genre}</p>
-                  </div>
-                  <div id="delete-book">
-                    <button type="button" onClick={this.deleteOnClick}>X</button>
-                  </div>
-                </div>
-              </div>
-  
-              <div style={{display: "none"}}>{element_index = element_index + 2}</div>
-  
-            </div>
-          )
-        }
-  
-        else if(items[index + 1] === undefined && index % 2 === 0)
-        {
-          return (
-            <div id="fragment" key={items[index].title}>
-              <img src={items[index].cover} alt=""/>
-              <h1>{items[index].title}</h1>
-              <div id="writer-genres">
-                <p>Writen by: {items[index].writer}</p>
-                <p>Genre: {items[index].genre}</p>
-              </div>
-              <div id="delete-book">
-                <button type="button" onClick={this.deleteOnClick}>X</button>
-              </div>
-            </div>
-          )
-        }
-  
-        else return null;
-        
-      });
-    }*/
-
-    /*else 
-    {
-      return this.state.searchedImages.map((value, index, items) => {
-
-        if(items[element_index + 1])
-        {
-          return (
-            <div className="row" key={items[element_index].title}>
-              
-              <div className="col-md-6">
-                <div id="fragment">
-                  <img src={items[element_index].cover} alt=""/>
-                  <h1>{items[element_index].title}</h1>
-                  <div id="writer-genres">
-                    <p>Writen by: {items[element_index].writer}</p>
-                    <p>Genre: {items[element_index].genre}</p>
-                  </div>
-                  <div id="delete-book">
-                    <button type="button" onClick={this.deleteOnClick}>X</button>
-                  </div>
-                </div>
-              </div>
-  
-              <div className="col-md-6">
-                <div id="fragment">
-                  <img src={items[element_index + 1].cover} alt=""/>
-                  <h1>{items[element_index + 1].title}</h1>
-                  <div id="writer-genres">
-                    <p>Writen by: {items[element_index + 1].writer}</p>
-                    <p>Genre: {items[element_index + 1].genre}</p>
-                  </div>
-                  <div id="delete-book">
-                    <button type="button" onClick={this.deleteOnClick}>X</button>
-                  </div>
-                </div>
-              </div>
-  
-              <div style={{display: "none"}}>{element_index = element_index + 2}</div>
-  
-            </div>
-          )
-        }
-  
-        else if(items[index + 1] === undefined && index % 2 === 0)
-        {
-          return (
-            <div id="fragment" key={items[index].title}>
-              <img src={items[index].cover} alt=""/>
-              <h1>{items[index].title}</h1>
-              <div id="writer-genres">
-                <p>Writen by: {items[index].writer}</p>
-                <p>Genre: {items[index].genre}</p>
-              </div>
-              <div id="delete-book">
-                <button type="button" onClick={this.deleteOnClick}>X</button>
-              </div>
-            </div>
-          )
-        }
-  
-        else return null;
-        
-      });
-    }*/}
-    
   }
 
   componentDidMount() {
     this.getImages();
+    
   }
 
   render() {
