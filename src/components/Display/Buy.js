@@ -16,16 +16,7 @@ export default class Buy extends Component {
 
   getImages = () => {
     
-    var data_json = require("../../dummy.json");
     
-    var allImgs = [];
-
-    for(let i = 0; i < 5; i++) 
-    {
-      allImgs.push(data_json.data[i]);
-    }
-    
-    this.setState({allImages: allImgs});
   }
 
   handleSearch = () =>  {

@@ -39,15 +39,9 @@ export default class SignupFront extends Component {
     var firestore = require('firebase/firestore');
 
     firestore = firebase.auth();
-    //One collection "users" and in each user(id is username that was given by signup)
-    //a 'books' collection
-    //where the user can upload as much books as he pleases.
 
     firestore.createUserWithEmailAndPassword(email, password)
-    .then(() => {
-
-      console.log("1");
-      
+    .then(() => {    
 
       db.collection("users").doc(email).set({
         username: username,
@@ -110,21 +104,7 @@ export default class SignupFront extends Component {
                 <input className="input100" type="password" name="rep-pass" placeholder="Repeat Password"></input>
                 <span className="focus-input100"></span>
               </div>
-              
-              <div className="flex-sb-m w-full p-t-3 p-b-24">
-                <div className="contact100-form-checkbox">
-                  <input className="input-checkbox100" id="ckb1" type="checkbox" name="remember-me"></input>
-                  <label className="label-checkbox100" htmlFor="ckb1">
-                    Remember me
-                  </label>
-                </div>
 
-                <div>
-                  <a href="http://localhost:3000" className="txt1">
-                    Forgot?
-                  </a>
-                </div>
-              </div>
 
               {(this.state.err) ? (<div id="signupErrDiv">
                 <p id="signupErrP">{this.state.errMessage}</p>

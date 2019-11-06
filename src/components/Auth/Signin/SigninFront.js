@@ -35,24 +35,62 @@ export default class SigninFront extends Component {
 
     firestore = firebase.auth();
 
-    firestore.signInWithEmailAndPassword(email, password)
+    if(document.getElementById("ckb1").checked) 
+    {
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(() => {
-        console.log("1");
-        this.setState({
-          redirect: true
-        })
+
+        firestore.signInWithEmailAndPassword(email, password)
+          .then(() => {
+
+            var jsonData = sessionStorage.getItem("firebase:authUser:AIzaSyDBmTmvtGACi1XJBz-wx1iZQx_zfqfBcdM:[DEFAULT]");
+
+            var sessionUser = JSON.parse(jsonData);
+
+            console.log(sessionUser.email) // Prints the user tha is signed in. Use that to get the data from the DB
+    
+            this.setState({
+              redirect: true
+            })
+
+          })
+          .catch(err => {
+            if(this.state.displayXClicked)
+            {
+              document.getElementById("signinErrDiv").style.display = "block";
+              this.setState({displayXClicked: false})
+            }
+            else {
+              this.setState({errMessage: err.message, err: true})
+            }
+            
+          });
       })
-      .catch(err => {
-        if(this.state.displayXClicked)
-        {
-          document.getElementById("signinErrDiv").style.display = "block";
-          this.setState({displayXClicked: false})
-        }
-        else {
-          this.setState({errMessage: err.message, err: true})
-        }
-        
-      });
+    }
+    else
+    {
+      firestore.signInWithEmailAndPassword(email, password)
+        .then(() => {
+  
+          this.setState({
+            redirect: true
+          })
+
+        })
+        .catch(err => {
+          if(this.state.displayXClicked)
+          {
+            document.getElementById("signinErrDiv").style.display = "block";
+            this.setState({displayXClicked: false})
+          }
+          else {
+            this.setState({errMessage: err.message, err: true})
+          }
+          
+        });
+    }
+
+    
 
   }
 
@@ -90,9 +128,9 @@ export default class SigninFront extends Component {
                 </div>
 
                 <div>
-                  <a href="http://localhost:3000" className="txt1">
+                  <Link to="/forgot" className="txt1">
                     Forgot?
-                  </a>
+                  </Link>
                 </div>
               </div>
 

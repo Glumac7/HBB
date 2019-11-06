@@ -14,7 +14,7 @@ export default class Logout extends Component {
       
       console.log("Loged out!");
     });
-    return <Redirect to='/signin' />
+    return <Redirect to='/' />
   }
 
   //Continue with the video playliste: https://www.youtube.com/watch?v=JWeoQn6KB0o&list=PL4cUxeGkcC9jUPIes_B8vRjn1_GaplOPQ&index=7

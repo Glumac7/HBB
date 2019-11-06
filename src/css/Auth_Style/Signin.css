@@ -3431,7 +3431,6 @@
 	  color: red;
 	  font-size: 18px;
   }
-
   
   @media (max-width: 992px) {
     .alert-validate::before {

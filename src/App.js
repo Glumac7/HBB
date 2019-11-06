@@ -8,6 +8,7 @@ import Home from './components/Display/Home';
 import Logout from './components/Auth/Logout/Logout';
 import SignupFront from './components/Auth/Signup/SignupFront';
 import SigninFront from './components/Auth/Signin/SigninFront';
+import Forgot from './components/Display/Forgot';
 import * as firebase from 'firebase';
 
 class App extends Component {
@@ -28,11 +29,7 @@ class App extends Component {
     firestore.onAuthStateChanged(user => {
       if (user) {
         // User is signed in.
-        /*if(!this.state.boolian) 
-        {*/
-          this.logit(user.email);
-          console.log(this.state.userEmail);
-        /*}*/
+        this.logit(user.email);
 
       } else {
         // No user is signed in.
@@ -57,6 +54,7 @@ class App extends Component {
             <Route path="/logout" component={Logout}/>
             <Route path="/signup" component={SignupFront}/>
             <Route path="/signin" component={SigninFront}/>
+            <Route path="/forgot" component={Forgot}/>
           </Switch>
         
         </div>

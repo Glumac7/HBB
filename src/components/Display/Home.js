@@ -22,7 +22,7 @@ export default class Home extends React.Component {
         <div className="bg">
           
           <Typing className="asd">
-            <span id="main-headline">there is no <span>friend</span> as loyal as a <span>book.</span></span>
+            <span id="main-headline">there is no <p>friend</p> as loyal as a <p>book.</p></span>
           </Typing>
   
           <section id="scroll-down">
