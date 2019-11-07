@@ -4,14 +4,17 @@ import {Redirect} from 'react-router-dom';
 import "../../../css/Auth_Style/Signin.css"
 import * as firebase from 'firebase';
 
-export default class SigninFront extends Component {
+class SigninFront extends Component {
 
   state = {
     redirect: false,
     errMessage: "",
     err: false,
-    displayXClicked: false
+    displayXClicked: false,
+    sessionUserEmail: ""
   }
+
+ 
 
   renderRedirect = () => {
     if (this.state.redirect) {
@@ -35,8 +38,11 @@ export default class SigninFront extends Component {
 
     firestore = firebase.auth();
 
-    if(document.getElementById("ckb1").checked) 
+    var rememberMeChecked = document.getElementById("ckb1").checked;
+
+    if(rememberMeChecked) 
     {
+      console.log("checked the box!");
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(() => {
 
@@ -47,8 +53,10 @@ export default class SigninFront extends Component {
 
             var sessionUser = JSON.parse(jsonData);
 
-            console.log(sessionUser.email) // Prints the user tha is signed in. Use that to get the data from the DB
-    
+            this.setState({sessionUserEmail: sessionUser.email});
+
+            rememberMeChecked = true;
+
             this.setState({
               redirect: true
             })
@@ -69,6 +77,7 @@ export default class SigninFront extends Component {
     }
     else
     {
+
       firestore.signInWithEmailAndPassword(email, password)
         .then(() => {
   
@@ -158,3 +167,5 @@ export default class SigninFront extends Component {
     )
   }
 }
+
+export default SigninFront;

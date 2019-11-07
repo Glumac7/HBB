@@ -5,7 +5,6 @@ import Footer from './Footer';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 
-
 export default class Have extends Component {
 
   state = {
@@ -13,7 +12,8 @@ export default class Have extends Component {
     searchedImages: [],
     searched: false,
     imgFile: null,
-  }
+    userEmail: this.props.userEmail
+  } 
 
   handleChange = event => {
 
@@ -31,30 +31,52 @@ export default class Have extends Component {
 
   getImages = () => {
 
+    //Fix the navbar and make it mobile frandly!
+
+    var jsonData = sessionStorage.getItem("firebase:authUser:AIzaSyDBmTmvtGACi1XJBz-wx1iZQx_zfqfBcdM:[DEFAULT]");
+
+    var sessionUser = JSON.parse(jsonData);
+    
+
     var db = firebase.firestore();
     var allImages = [];
     var usernamee = "";
-    var justThis = this;
+    var userEmail;
+
+    if( sessionUser )
+    {
+      var sessionUserEmail = sessionUser.email;
+      this.setState({userEmail: sessionUserEmail});
+      userEmail = sessionUserEmail;
+    }
+    else
+    {
+      userEmail = this.props.userEmail;
+    }
 
     new Promise(function(resolve, reject) {
-      setTimeout(function() {
-        resolve(justThis.props.userEmail);
-      }, 0);
+
+      resolve(userEmail);
+
     })
     .then(value => {
+
       usernamee = value;
 
       db.collection('users').doc(usernamee).collection('books').get()
-          .then(snapshot => {
-            const snapDocs = snapshot.docs;
+        .then(snapshot => {
+          const snapDocs = snapshot.docs;
 
-            snapDocs.forEach(doc => {
-              const guide = doc.data();
-              allImages.push(guide);
-              this.setState({allImages: allImages})
-            })
-            
+          snapDocs.forEach(doc => {
+            const guide = doc.data();
+            allImages.push(guide);
+            this.setState({allImages: allImages})
           })
+          
+        })
+    })
+    .catch(err => {
+      console.log("There are no users signed in! " + err)
     });
       
   }
@@ -223,7 +245,7 @@ export default class Have extends Component {
 
             this.setState({allImages: modifiedState});
 
-            db.collection("users").doc(this.props.userEmail+"").collection('books').doc(usersName+"").set({
+            db.collection("users").doc(this.state.userEmail+"").collection('books').doc(usersName+"").set({
               cover: e,
               genre: lastStateElement.genre,
               title: lastStateElement.title,
@@ -287,10 +309,6 @@ export default class Have extends Component {
     )
   }
 
-
-  // Add a functionality so that it is possible to change 
-  // the dummy.json file which is supposed to be empty before enteries
-
   deleteOnClick = (e) => {
 
     var db = firebase.firestore();
@@ -299,9 +317,9 @@ export default class Have extends Component {
     var p1 = e.target.parentElement.parentElement.querySelectorAll('p')[0].querySelector('b').innerText.replace(/\s+/g, '');;
     var p2 = e.target.parentElement.parentElement.querySelectorAll('p')[1].querySelector('b').innerText.replace(/\s+/g, '');;
     
-    var element = p2+p1+h1;
+    var element = p2 + p1 + h1;
 
-    db.collection('users').doc(this.props.userEmail).collection('books').doc(element).delete();
+    db.collection('users').doc(this.state.userEmail).collection('books').doc(element).delete();
 
     e.target.parentElement.parentElement.style.display = "none";
   }
