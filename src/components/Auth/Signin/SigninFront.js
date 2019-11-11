@@ -17,9 +17,7 @@ class SigninFront extends Component {
  
 
   renderRedirect = () => {
-    if (this.state.redirect) {
       return <Redirect to='/have' />
-    }
   }
 
   deleteOnClick = (e) => {
@@ -77,7 +75,7 @@ class SigninFront extends Component {
     }
     else
     {
-
+      console.log("not checked");
       firestore.signInWithEmailAndPassword(email, password)
         .then(() => {
   
@@ -98,9 +96,6 @@ class SigninFront extends Component {
           
         });
     }
-
-    
-
   }
 
   render() {

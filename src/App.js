@@ -19,21 +19,23 @@ class App extends Component {
     userEmail: ""
   }
 
-  logit = (email) => {
-    this.setState({userEmail: email, isLogedin: true});
+  logitTrue = (email) => {
+    this.setState({userEmail: email});
   }
 
   componentDidMount() {
     var firestore = firebase.auth();
     
     firestore.onAuthStateChanged(user => {
-      if (user) {
+      if (user && sessionStorage.length == 0) {
         // User is signed in.
-        this.logit(user.email);
+        console.log("User signedin!", user.email);
+        this.logitTrue(user.email);
 
       } else {
         // No user is signed in.
         console.log("No user is signed in.")
+        this.logitTrue("");
       }
 
     })
@@ -45,7 +47,7 @@ class App extends Component {
       <Router>
         <div className="App">
         
-          <Navbar isLogedin={this.state.isLogedin}></Navbar>
+          <Navbar></Navbar>
         
           <Switch>
             <Route exact path="/" component={Home}/>

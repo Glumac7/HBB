@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import '../../css/Nav, Footer/Navbar.css';
 import '../../js/NavbarJS';
+import * as firebase from 'firebase';
 
 function burger_icon() //Controls the burger icon animation
 {
@@ -24,18 +25,47 @@ function burger_icon() //Controls the burger icon animation
 class Navbar extends React.Component {
 
     state = {
-        isLogedin: this.props.isLogedin
+        isLogedin: false
     }
 
     handleClick = () => {  this.setState({isLogedin: !this.state.isLogedin})  }
+
     
+    logitTrue = () => {
+        this.setState({isLogedin: true});
+    }
+    logitFalse = () => {
+        this.setState({isLogedin: false});
+    }
+    
+    componentDidMount() {
+        var firestore = firebase.auth();
+
+        
+        firestore.onAuthStateChanged(user => {
+        
+            if (user) {
+            // User is signed in.
+                console.log("User signedin! " , user);
+                this.logitTrue();
+
+            } else {
+            // No user is signed in.
+                this.logitFalse();
+                console.log("No user is signed in.")
+            }
+
+        })
+    }
+
     render() {
         var burgerIcon = () => burger_icon();
 
         return (
             <nav className="navbar navbar-expand-lg fixed-top">
                 {
-                    (this.state.isLogedin) ? (
+                   (window.location.pathname === "/forgot" || window.location.pathname === "/signin" || window.location.pathname === "/signup") ? (<div className="container">
+                            <Link to="/"><div className="navbar-brand"><img className="navbar-brand" alt="Logo" id="logo" src={ require('../../images/logo.png') } /></div></Link></div>) : (this.state.isLogedin) ? (
                         
                             <div className="container">
                             <Link to="/"><div className="navbar-brand"><img className="navbar-brand" alt="Logo" id="logo" src={ require('../../images/logo.png') } /></div></Link>

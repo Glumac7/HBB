@@ -11,8 +11,9 @@ export default class Logout extends Component {
 
     firestore.signOut()
     .then(() => {
-      
       console.log("Loged out!");
+      
+      
     });
     return <Redirect to='/' />
   }
