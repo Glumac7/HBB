@@ -14,28 +14,20 @@ import * as firebase from 'firebase';
 class App extends Component {
 
   state = {
-    isLogedin: false,
     boolian: false,
-    userEmail: ""
-  }
-
-  logitTrue = (email) => {
-    this.setState({userEmail: email});
   }
 
   componentDidMount() {
     var firestore = firebase.auth();
     
     firestore.onAuthStateChanged(user => {
-      if (user && sessionStorage.length == 0) {
+      if (user) {
         // User is signed in.
         console.log("User signedin!", user.email);
-        this.logitTrue(user.email);
 
       } else {
         // No user is signed in.
         console.log("No user is signed in.")
-        this.logitTrue("");
       }
 
     })
@@ -51,7 +43,7 @@ class App extends Component {
         
           <Switch>
             <Route exact path="/" component={Home}/>
-            <Route path="/have" render={prop => <Have {...prop} userEmail={this.state.userEmail}/>}/>
+            <Route path="/have" component={Have}/>
             <Route path="/buy" component={Buy}/>
             <Route path="/logout" component={Logout}/>
             <Route path="/signup" component={SignupFront}/>

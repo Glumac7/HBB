@@ -11,7 +11,6 @@ class SigninFront extends Component {
     errMessage: "",
     err: false,
     displayXClicked: false,
-    sessionUserEmail: ""
   }
 
  
@@ -41,19 +40,13 @@ class SigninFront extends Component {
     if(rememberMeChecked) 
     {
       console.log("checked the box!");
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
       .then(() => {
 
         firestore.signInWithEmailAndPassword(email, password)
           .then(() => {
 
-            var jsonData = sessionStorage.getItem("firebase:authUser:AIzaSyDBmTmvtGACi1XJBz-wx1iZQx_zfqfBcdM:[DEFAULT]");
-
-            var sessionUser = JSON.parse(jsonData);
-
-            this.setState({sessionUserEmail: sessionUser.email});
-
-            rememberMeChecked = true;
+            localStorage.setItem('userEmail', email);
 
             this.setState({
               redirect: true
@@ -61,6 +54,7 @@ class SigninFront extends Component {
 
           })
           .catch(err => {
+            console.log(err)
             if(this.state.displayXClicked)
             {
               document.getElementById("signinErrDiv").style.display = "block";
@@ -79,6 +73,8 @@ class SigninFront extends Component {
       firestore.signInWithEmailAndPassword(email, password)
         .then(() => {
   
+          sessionStorage.setItem('userEmail', email);
+
           this.setState({
             redirect: true
           })

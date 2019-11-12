@@ -12,7 +12,7 @@ export default class Have extends Component {
     searchedImages: [],
     searched: false,
     imgFile: null,
-    userEmail: this.props.userEmail
+    userEmail: ""
   } 
 
   handleChange = event => {
@@ -24,6 +24,21 @@ export default class Have extends Component {
     document.getElementById('input-cancel-button').style.display = "block";
   }
 
+  deleteOnClick = (e) => {
+
+    var db = firebase.firestore();
+    
+    var h1 = e.target.parentElement.parentElement.querySelector('h1').querySelector('b').innerText.replace(/\s+/g, '');;
+    var p1 = e.target.parentElement.parentElement.querySelectorAll('p')[0].querySelector('b').innerText.replace(/\s+/g, '');;
+    var p2 = e.target.parentElement.parentElement.querySelectorAll('p')[1].querySelector('b').innerText.replace(/\s+/g, '');;
+    
+    var element = p2 + p1 + h1;
+
+    db.collection('users').doc(this.state.userEmail).collection('books').doc(element).delete();
+
+    e.target.parentElement.parentElement.style.display = "none";
+  }
+
   handleX = (e) => {
     document.getElementById('file').value = "";
     e.target.style.display = "none";
@@ -33,52 +48,34 @@ export default class Have extends Component {
 
     //Fix the navbar and make it mobile frandly!
 
-    var jsonData = sessionStorage.getItem("firebase:authUser:AIzaSyDBmTmvtGACi1XJBz-wx1iZQx_zfqfBcdM:[DEFAULT]");
-
-    var sessionUser = JSON.parse(jsonData);
-    
-
     var db = firebase.firestore();
+    
     var allImages = [];
-    var usernamee = "";
-    var userEmail;
+    var userEmail = "";
 
-    if( sessionUser )
+    if(!sessionStorage.getItem("userEmail"))
     {
-      var sessionUserEmail = sessionUser.email;
-      this.setState({userEmail: sessionUserEmail});
-      userEmail = sessionUserEmail;
+      userEmail = localStorage.getItem("userEmail");
     }
-    else
+    else if(sessionStorage.getItem("userEmail"))
     {
-      userEmail = this.props.userEmail;
+      userEmail = sessionStorage.getItem("userEmail");
     }
 
-    new Promise(function(resolve, reject) {
+    this.setState({userEmail: userEmail});
 
-      resolve(userEmail);
+    db.collection('users').doc(userEmail).collection('books').get()
+      .then(snapshot => {
+        const snapDocs = snapshot.docs;
 
-    })
-    .then(value => {
-
-      usernamee = value;
-
-      db.collection('users').doc(usernamee).collection('books').get()
-        .then(snapshot => {
-          const snapDocs = snapshot.docs;
-
-          snapDocs.forEach(doc => {
-            const guide = doc.data();
-            allImages.push(guide);
-            this.setState({allImages: allImages})
-          })
-          
+        snapDocs.forEach(doc => {
+          const guide = doc.data();
+          allImages.push(guide);
+          this.setState({allImages: allImages})
         })
-    })
-    .catch(err => {
-      console.log("There are no users signed in! " + err)
-    });
-      
+        
+      })
+        
   }
 
   handleSearch = () =>  {
@@ -307,21 +304,6 @@ export default class Have extends Component {
         </div>
       </div>
     )
-  }
-
-  deleteOnClick = (e) => {
-
-    var db = firebase.firestore();
-    
-    var h1 = e.target.parentElement.parentElement.querySelector('h1').querySelector('b').innerText.replace(/\s+/g, '');;
-    var p1 = e.target.parentElement.parentElement.querySelectorAll('p')[0].querySelector('b').innerText.replace(/\s+/g, '');;
-    var p2 = e.target.parentElement.parentElement.querySelectorAll('p')[1].querySelector('b').innerText.replace(/\s+/g, '');;
-    
-    var element = p2 + p1 + h1;
-
-    db.collection('users').doc(this.state.userEmail).collection('books').doc(element).delete();
-
-    e.target.parentElement.parentElement.style.display = "none";
   }
 
   renderBooks() {
