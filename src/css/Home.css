@@ -71,6 +71,10 @@
     margin: auto;
 }
 
+#about-text  h1 {
+        padding-bottom: 1%;
+}
+
 #about-photos {
     position: relative;
 }
@@ -280,4 +284,32 @@
     100% {
       opacity: 0;
     }
+}
+
+@media (max-width: 767px)
+{
+        #about-container {
+                text-align: center;
+                display: inline-block;
+                height: auto;
+        }
+
+        #about-text {
+                height: auto;
+                padding: 50px 0;
+        }
+
+        #about-photos {
+                margin-bottom: 15%;
+        }
+
+        #about-photos img:nth-child(1) { 
+                left: 10%
+        }
+        
+        #about-photos img:nth-child(2) {
+        
+                left: -10%;
+                top: 10%;
+        }
 }

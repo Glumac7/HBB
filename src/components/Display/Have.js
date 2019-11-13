@@ -21,7 +21,11 @@ export default class Have extends Component {
     
     this.setState({imgFile: imgFile});
 
-    document.getElementById('input-cancel-button').style.display = "block";
+    document.querySelector("#file + label").style.width = "80%";
+    document.getElementById('input-cancel-button').style.width = "20%";
+    
+    document.getElementById('input-cancel-button').style.display = "inline-block";
+
   }
 
   deleteOnClick = (e) => {
@@ -42,6 +46,9 @@ export default class Have extends Component {
   handleX = (e) => {
     document.getElementById('file').value = "";
     e.target.style.display = "none";
+
+    
+    document.querySelector("#file + label").style.width = "100%";
   }
 
   getImages = () => {
@@ -66,14 +73,22 @@ export default class Have extends Component {
 
     db.collection('users').doc(userEmail).collection('books').get()
       .then(snapshot => {
-        const snapDocs = snapshot.docs;
+        try{
+          const snapDocs = snapshot.docs;
 
-        snapDocs.forEach(doc => {
-          const guide = doc.data();
-          allImages.push(guide);
-          this.setState({allImages: allImages})
-        })
+          snapDocs.forEach(doc => {
+            const guide = doc.data();
+            allImages.push(guide);
+            this.setState({allImages: allImages})
+          })
+        }
+        catch(err) {
+          console.log(err)
+        }
         
+      })
+      .catch(err => {
+        console.log(err)
       })
         
   }
@@ -290,14 +305,16 @@ export default class Have extends Component {
             <option>Mystery</option>
           </select>          
              
-          <input onChange={this.handleChange} type="file" name="file" id="file" className="form-control col-md-3 inputfile inputfile-input" data-multiple-caption="{count} files selected" multiple></input>
-          <label htmlFor="file"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;</span></label>
-          <button onClick={this.handleX} id="input-cancel-button" style={{display: "none", width: "44px", borderLeft: "1px solid #ced4da"}}>X</button>
+          <div id="choose-a-file">
+            <input onChange={this.handleChange} type="file" name="file" id="file" className="form-control col-md-3 inputfile inputfile-input" data-multiple-caption="{count} files selected" multiple></input>
+            <label htmlFor="file"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Choose a file&hellip;&nbsp;&nbsp;&nbsp;</span></label>
+            <button onClick={this.handleX} id="input-cancel-button" style={{display: "none"}}>X</button>
 
+          </div>
           <input id="writer" defaultValue="" type="text" className="form-control col-md-3" placeholder="Writer..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
 
           <input id="title" defaultValue="" type="text" className="form-control col-md-3" placeholder="Title..." aria-label="Recipient's username" aria-describedby="button-addon2"></input>
-          <div className="input-group-append">
+          <div className="input-group-append search-add-buttons">
             <button onClick={this.handleSearch} className="btn search-btn" type="button" id="button-addon2">Search</button>
             <button onClick={this.handleAdd} className="btn" type="button" id="button-addon2">Add</button>
           </div>

@@ -27,9 +27,6 @@ class Navbar extends React.Component {
     state = {
         isLogedin: false
     }
-
-    handleClick = () => {  this.setState({isLogedin: !this.state.isLogedin})  }
-
     
     logitTrue = () => {
         this.setState({isLogedin: true});

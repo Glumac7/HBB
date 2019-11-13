@@ -103,6 +103,7 @@ p,h1,h2,h3,h4,h5,h6 {
     position: relative;
     display: inline-block;
     width: 48%;
+    background-color: #fff;
 }
 
 #writer-genres {
@@ -126,28 +127,35 @@ p,h1,h2,h3,h4,h5,h6 {
     width: 100%;
 }
 
-#genres, label[for="file"], #file {
+#genres, #file {
     font-family: var(--default-font);
     height: auto !important;
 }
 
 label[for="file"] {
-   /* border-top: 1px solid rgba(105,34,176,.5);
-    border-bottom: 1px solid rgba(105,34,176,.5);
-    */background: #fff;
+    font-family: var(--default-font);
+    background: #fff;
 }
 
 #file + label {
-    max-width: 80%;
     font-size: 1rem;
     /* 20px */
     text-overflow: ellipsis;
     white-space: nowrap;
     cursor: pointer;
-    display: inline-block;
-    overflow: hidden;
     padding: 0.625rem 1.25rem;
     /* 10px 20px */
+}
+
+#choose-a-file, #choose-a-file label {
+    display: inline-block;
+}
+
+
+#choose-a-file button {
+    display: inline-block;
+    height: 100%;
+    border-left: 1px solid #ced4da;
 }
 
 #file{
@@ -198,4 +206,43 @@ label[for="file"] {
 
 #delete-book button:hover {
     color: var(--default-color);
+}
+
+@media (max-width: 574px)
+{
+    #fragment {
+        width: 98%;
+        margin-bottom: 5%;
+    }
+
+    #filter-container > * {
+        width: 100%;
+        border: 1px solid #ced4daaf;
+        border-radius: 5px;
+    }
+
+    #filter-container .search-add-buttons button{
+        width: 50%;
+        border: 1px solid #ced4daaf;
+        background: var(--default-color);
+        color: #fff;
+        border-top: 0;
+        border-radius: 5px;
+    }
+
+    /*#writer, #title, #genres {
+        text-align: center;
+    }*/
+
+    #file + label {
+        border-radius: 5px;
+        text-align: left;
+        max-width: none;
+        width: 100%;
+    }
+
+    #choose-a-file button {
+        border-radius: 5px;
+        border-left: 2px solid #ced4da;
+    }
 }

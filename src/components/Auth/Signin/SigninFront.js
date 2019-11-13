@@ -70,27 +70,30 @@ class SigninFront extends Component {
     else
     {
       console.log("not checked");
-      firestore.signInWithEmailAndPassword(email, password)
-        .then(() => {
-  
-          sessionStorage.setItem('userEmail', email);
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      .then(() => {
+          firestore.signInWithEmailAndPassword(email, password)
+          .then(() => {
 
-          this.setState({
-            redirect: true
+            sessionStorage.setItem('userEmail', email);
+
+            this.setState({
+              redirect: true
+            })
+
           })
-
-        })
-        .catch(err => {
-          if(this.state.displayXClicked)
-          {
-            document.getElementById("signinErrDiv").style.display = "block";
-            this.setState({displayXClicked: false})
-          }
-          else {
-            this.setState({errMessage: err.message, err: true})
-          }
-          
-        });
+          .catch(err => {
+            if(this.state.displayXClicked)
+            {
+              document.getElementById("signinErrDiv").style.display = "block";
+              this.setState({displayXClicked: false})
+            }
+            else {
+              this.setState({errMessage: err.message, err: true})
+            }
+            
+          });
+      })
     }
   }
 
