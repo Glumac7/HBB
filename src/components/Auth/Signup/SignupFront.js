@@ -29,46 +29,64 @@ export default class SignupFront extends Component {
 
   addUsers = () => {
 
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('signup-email').value;
-    const password = document.getElementById('signup-password').value;
+    var passwordValue = document.getElementById("signup-password").value;
+    var repeatPasswordValue = document.getElementById("signup-passwordReset").value;
 
-    var db = firebase.firestore();
-    var forState = this;
+    if(passwordValue === repeatPasswordValue)
+    {
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
 
-    var firestore = require('firebase/firestore');
+      var db = firebase.firestore();
+      var forState = this;
 
-    firestore = firebase.auth();
+      var firestore = require('firebase/firestore');
 
-    firestore.createUserWithEmailAndPassword(email, password)
-    .then(() => {    
+      firestore = firebase.auth();
 
-      db.collection("users").doc(email).set({
-        username: username,
-        eMail: email,
-      })
-      .then(function() {
-        forState.setState({
-          redirect: true
+      firestore.createUserWithEmailAndPassword(email, password)
+      .then(() => {    
+
+        db.collection("users").doc(email).set({
+          username: username,
+          eMail: email,
         })
-          console.log("Document successfully written!");
+        .then(function() {
+          forState.setState({
+            redirect: true
+          })
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+
       })
-      .catch(function(error) {
-          console.error("Error writing document: ", error);
+      .catch(err => {
+        if(this.state.displayXClicked)
+        {
+          document.getElementById("signupErrDiv").style.display = "block";
+          this.setState({displayXClicked: false})
+        }
+        else {
+          this.setState({errMessage: err.message, err: true})
+        }
+        
       });
 
-    })
-    .catch(err => {
+    }
+    else
+    {
       if(this.state.displayXClicked)
       {
         document.getElementById("signupErrDiv").style.display = "block";
         this.setState({displayXClicked: false})
       }
       else {
-        this.setState({errMessage: err.message, err: true})
+        this.setState({errMessage: "The passwords must match in order to continue.", err: true})
       }
-      
-    });
+    }
 
   }
 
@@ -101,7 +119,7 @@ export default class SignupFront extends Component {
               </div>
 
               <div className="wrap-input100 validate-input m-b-16" data-validate = "Password is required">
-                <input className="input100" type="password" name="rep-pass" placeholder="Repeat Password"></input>
+                <input id="signup-passwordReset" className="input100" type="password" name="rep-pass" placeholder="Repeat Password"></input>
                 <span className="focus-input100"></span>
               </div>
 

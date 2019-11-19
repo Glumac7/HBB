@@ -38,7 +38,7 @@ export default class Have extends Component {
     
     var element = p2 + p1 + h1;
 
-    db.collection('users').doc(this.state.userEmail).collection('books').doc(element).delete();
+    db.collection('users').doc(this.state.userEmail).collection('have').doc(element).delete();
 
     e.target.parentElement.parentElement.style.display = "none";
   }
@@ -71,7 +71,7 @@ export default class Have extends Component {
 
     this.setState({userEmail: userEmail});
 
-    db.collection('users').doc(userEmail).collection('books').get()
+    db.collection('users').doc(userEmail).collection('have').get()
       .then(snapshot => {
         try{
           const snapDocs = snapshot.docs;
@@ -257,7 +257,7 @@ export default class Have extends Component {
 
             this.setState({allImages: modifiedState});
 
-            db.collection("users").doc(this.state.userEmail+"").collection('books').doc(usersName+"").set({
+            db.collection("users").doc(this.state.userEmail+"").collection('have').doc(usersName+"").set({
               cover: e,
               genre: lastStateElement.genre,
               title: lastStateElement.title,
@@ -323,7 +323,7 @@ export default class Have extends Component {
     )
   }
 
-  renderBooks() {
+  renderhave() {
 
       if(this.state.searched)
       {
@@ -378,10 +378,10 @@ export default class Have extends Component {
         <span className="login100-form-title p-b-51">
                 Have
         </span>
-        <div className="container text-center" id="books-container">
+        <div className="container text-center" id="have-container">
         
             <div className="row" id="filter">{this.renderFilter()}</div>
-            <div id="books">{this.renderBooks()}</div>
+            <div id="have">{this.renderhave()}</div>
 
         </div>
       </div>
