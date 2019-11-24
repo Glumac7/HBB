@@ -9,8 +9,7 @@ img {
 }
 
 input,
-button,
-p,h1,h2,h3,h4,h5,h6 {
+button,h1,h2,h3,h4,h5,h6 {
     font-family: var(--default-font) !important;
 }
 
@@ -99,11 +98,22 @@ p,h1,h2,h3,h4,h5,h6 {
 #books {
     padding-bottom: 1%;
 }
+
+#have-container {
+    border-radius: 5px;
+}
+
 #fragment {
     position: relative;
+    border-radius: 5px;
     display: inline-block;
     width: 48%;
     background-color: #fff;
+}
+
+#fragment img {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 #writer-genres {

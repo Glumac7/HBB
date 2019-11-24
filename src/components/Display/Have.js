@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../../css/Have.css';
-import '../../js/HaveJS';
 import Footer from './Footer';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
@@ -334,7 +333,7 @@ export default class Have extends Component {
               <img src={items[index].cover} alt=""/>
               <h1><b>{items[index].title}</b></h1>
               <div id="writer-genres">
-                <p>Writen by: <b>{items[index].writer}</b></p>
+                <p style={{fontFamily: "Ubuntu-Regular"}}>Writen by: <b>{items[index].writer}</b></p>
                 <p>Genre: <b>{items[index].genre}</b></p>
               </div>
               <div id="delete-book">

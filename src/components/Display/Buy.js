@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../../css/Have.css';
-import '../../js/HaveJS';
+import '../../css/Buy.css';
 import Footer from './Footer';
 import * as firebase from 'firebase';
 import 'firebase/firestore';
