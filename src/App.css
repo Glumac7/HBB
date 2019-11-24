@@ -1,32 +1,36 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: FontAwesome;
+  src: url('./fonts/font-awesome-4.7.0/fonts/FontAwesome.otf')
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+@font-face {
+  font-family: Ubuntu-Regular;
+  src: url('./fonts/ubuntu/Ubuntu-Regular.ttf'); 
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@font-face {
+  font-family: Ubuntu-Bold;
+  src: url('./fonts/ubuntu/Ubuntu-Bold.ttf'); 
+}
+:root {
+    --default-color: #6922B0;
+    --default-font: Ubuntu-Bold;
+}
+body,html {height: 100%; font-family: Ubuntu-Regular;}
+
+/*SCROLBAR!*/
+body::-webkit-scrollbar-track {
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
-.App-link {
-  color: #61dafb;
+body::-webkit-scrollbar {
+  width: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: var(--default-color);
 }
+/******************/
+.App, #root {height: 100%}

@@ -1,0 +1,24 @@
+#footer-container, 
+#footer-container .container, 
+#footer-container .row
+ {
+    background-color: rgb(75, 75, 75);
+}
+
+#footer-container .col-md-4{
+    display: flex;
+    margin: 0 auto;
+}
+
+#footer-container p{
+    text-align: center;
+    margin: auto;
+}
+
+#footer-container img {
+    padding: 25px 0;
+    margin: auto;
+    width: 100%;
+    height: auto;
+    filter: grayscale(100%);
+}

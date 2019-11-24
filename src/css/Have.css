@@ -1,0 +1,258 @@
+@import 'Have-background.css';
+
+.App > #footer-container {
+    display: block;
+}
+
+img {
+    width: 100%;
+}
+
+input,
+button,h1,h2,h3,h4,h5,h6 {
+    font-family: var(--default-font) !important;
+}
+
+#books-container {
+    border-radius: 5px;
+}
+
+#genres, #writer {
+    border-left: 0;
+    border-right: 2px solid #ced4da;
+}
+
+#writer {
+    border-right: 2px solid #ced4da;
+    border-left: 1px solid #ced4da;
+}
+
+#writer, #title, #genres {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+#title {
+    border-right: 2px solid #ced4da;
+}
+
+#filter-container {
+    width: 98%;
+    margin-top: .8%;
+    margin-left: 1%;
+}
+
+@media (min-width: 768px) {
+    #fragment {
+        display: inline-block;
+        margin: 1%;
+        height: 98%;
+        background-color: #fff
+    }
+}
+
+#Have-component {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 80px 0;
+}
+
+#Have-component .container {
+    -webkit-box-shadow: 0px 4px 5px 0px rgba(105,34,176,1);
+    -moz-box-shadow: 0px 4px 5px 0px rgba(105,34,176,1);
+    box-shadow: 0px 4px 5px 0px rgba(105,34,176,1);
+    background: #e4e4e4;
+}
+
+#Have-component span.login100-form-title {
+    padding-top: 20px;
+    font-size: 3em;
+    padding-bottom: 76px;
+}
+
+.img-thumbnail {
+    max-height: 10%;
+}
+
+#filter button {
+    color: var(--default-color);
+    background: #fff;
+    /*border: 1px solid var(--default-color);*/
+    transition: all .2s;
+}
+
+#filter button:hover {
+    color: #fff;
+    background: var(--default-color);
+}
+/*
+#filter input,
+#filter select {
+    border: 1px solid rgba(105,34,176,.5);
+}*/
+
+#books .img-thumbnail {
+    max-height: 100%;
+}
+
+#books {
+    padding-bottom: 1%;
+}
+
+#have-container {
+    border-radius: 5px;
+}
+
+#fragment {
+    position: relative;
+    border-radius: 5px;
+    display: inline-block;
+    width: 48%;
+    background-color: #fff;
+}
+
+#fragment img {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+#writer-genres {
+    
+    position: absolute;
+    bottom: 1%;
+    left: 1%;
+}
+
+#fragment h1 {
+    padding-top: 25px;
+    padding-bottom: 100px;
+}
+
+#fragment p {
+    text-align: left;
+    margin: 0;
+}
+
+#form {
+    width: 100%;
+}
+
+#genres, #file {
+    font-family: var(--default-font);
+    height: auto !important;
+}
+
+label[for="file"] {
+    font-family: var(--default-font);
+    background: #fff;
+}
+
+#file + label {
+    font-size: 1rem;
+    /* 20px */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0.625rem 1.25rem;
+    /* 10px 20px */
+}
+
+#choose-a-file, #choose-a-file label {
+    display: inline-block;
+}
+
+
+#choose-a-file button {
+    display: inline-block;
+    height: 100%;
+    border-left: 1px solid #ced4da;
+}
+
+#file{
+    display: none;
+}
+
+#file + label svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    fill: currentColor;
+    margin-top: -0.25em;
+    /* 4px */
+    margin-right: 0.25em;
+    /* 4px */
+}
+/* style 3 */
+
+#file + label {
+    color: #495057;
+}
+
+#file:focus + label,
+#file.has-focus + label,
+#file + label:hover {
+    color: #495057;
+}
+
+#input-cancel-button {
+    width: 44px;
+    border-left: 1px solid #ced4da;
+}
+
+.search-btn {
+    border-right: 2px solid #ced4da;
+}
+
+#delete-book {
+    text-align: right;
+
+}
+
+#delete-book button{
+    transition: all .3s;
+    padding-right: 2%;
+    font-size: 30px;
+}
+
+#delete-book button:hover {
+    color: var(--default-color);
+}
+
+@media (max-width: 574px)
+{
+    #fragment {
+        width: 98%;
+        margin-bottom: 5%;
+    }
+
+    #filter-container > * {
+        width: 100%;
+        border: 1px solid #ced4daaf;
+        border-radius: 5px;
+    }
+
+    #filter-container .search-add-buttons button{
+        width: 50%;
+        border: 1px solid #ced4daaf;
+        background: var(--default-color);
+        color: #fff;
+        border-top: 0;
+        border-radius: 5px;
+    }
+
+    /*#writer, #title, #genres {
+        text-align: center;
+    }*/
+
+    #file + label {
+        border-radius: 5px;
+        text-align: left;
+        max-width: none;
+        width: 100%;
+    }
+
+    #choose-a-file button {
+        border-radius: 5px;
+        border-left: 2px solid #ced4da;
+    }
+}
