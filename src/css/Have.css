@@ -249,6 +249,11 @@ label[for="file"] {
         text-align: left;
         max-width: none;
         width: 100%;
+        padding: .375rem .75rem;
+    }
+
+    .search-add-buttons {
+        margin-bottom: 30px;
     }
 
     #choose-a-file button {

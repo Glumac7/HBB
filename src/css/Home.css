@@ -299,6 +299,12 @@
                 padding: 50px 0;
         }
 
+        #about-text p {
+                padding-left: 15px;
+                padding-right: 15px;
+        }
+
+
         #about-photos {
                 margin-bottom: 15%;
         }
@@ -311,5 +317,13 @@
         
                 left: -10%;
                 top: 10%;
+        }
+
+        #main-headline {
+                font-size: 46px;
+        }
+
+        #main-headline p {
+                font-size: 46px;
         }
 }
