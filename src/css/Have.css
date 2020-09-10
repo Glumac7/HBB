@@ -13,6 +13,10 @@ button,h1,h2,h3,h4,h5,h6 {
     font-family: var(--default-font) !important;
 }
 
+#no-books {
+    padding: 10% 0%;
+}
+
 #books-container {
     border-radius: 5px;
 }
