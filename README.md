@@ -6,12 +6,10 @@ Live version is available online at: http://booker-f7c51.web.app
 
 ## Installation
 
-To check it out on your PC, download the repository, extract the folder to your desktop, open the terminal in that folder and run the folowing comands:
+To check it out on your PC, download the repository, extract the folder to your desktop, open the terminal in that folder and run the folowing comand:
 
 ```bash
-npm install jquery
-npm install react-router-dom
-npm install react-typing-animation
+npm install
 ```
 Once it's all done, type in the terminal:
 
